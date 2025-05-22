@@ -1,5 +1,4 @@
 import React from 'react'
-
 const UserContext = React.createContext();
 
 const reducer = (state, action) => {

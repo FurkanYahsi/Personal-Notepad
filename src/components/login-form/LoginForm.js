@@ -1,55 +1,19 @@
-import { Button, Form, Input, notification } from "antd";
+import { Button, Form, Input } from "antd";
 import './LoginForm.css'
-
 import {Link} from "react-router-dom";
-import { useState } from "react";
-// import { useForm } from "antd/es/form/Form";
-
-//@Todo: form düzeltilecek
+import { useLoginForm } from "./LoginForm.logic";
 
 const LoginForm = () => {
-  // const form = useForm();
-  const [email, emailUpdate] = useState('');
-  const [password, passwordUpdate] = useState('');
-
-  const proceedLogin = (e) => {
-    if (isValid()) {
-      console.log('validation');
-    }
-  }
-  const isValid = () => {
-    let result = true;
-    console.log({email});
-    if (email==='' || email===null) {
-      result = false;
-      console.log('bos');
-            
-      notification.warning({
-        message: "Enter your email!",
-        description: "Email is blank",
-        placement: "bottomLeft",
-        duration: 4,
-      });
-    }
-    if (password==='' || password===null) {
-      result = false;
-      notification.warning({
-        message: "Enter your password!",
-        description: "Password is blank",
-        placement: "bottomLeft",
-        duration: 4,
-      });
-    }
-     return result;
-  }
-
+  const {contextHolder,form,handleSubmit,proceedLogin} = useLoginForm()
+ 
   return (   
     <div className='loginForm'>
+      {contextHolder}
       <div className='card'>
         <div className="card-header" style={{color:'white'}}>Welcome Back!</div>
         <div className="card-body">
           <Form
-            // form={form}
+            form={form}
             name="basic"
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
@@ -59,9 +23,9 @@ const LoginForm = () => {
               <Form.Item
                 label='Email::'
                 name='email'
-                rules={[{ required: true, message: 'Please enter your password!'}]}
+                rules={[{ required: true, message: 'Please enter your email!'}]}
               >
-                <Input type="text" value={email} onChange={e=>emailUpdate(e.target.value)}/>
+                <Input type="text"/>
               </Form.Item>
 
               <Form.Item
@@ -70,11 +34,11 @@ const LoginForm = () => {
                 rules={[{ required: true, message: 'Please enter your password!'}]}
               >
                     {/* Kontrol gerekli */}
-                    <Input.Password autoComplete="off" type="text" value={password} onChange={e=>passwordUpdate(e.target.value)}/>
+                    <Input.Password autoComplete="off" type="text"/>
               </Form.Item>
 
               <Form.Item label={null}>
-                <Button type="primary" htmlType="submit">Submit</Button>
+                <Button type="primary" onClick={handleSubmit}>Submit</Button>
               </Form.Item>
 
           </Form>

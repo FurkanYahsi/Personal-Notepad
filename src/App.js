@@ -2,6 +2,7 @@ import './App.css';
 import {Routes, Route} from 'react-router-dom'
 import LoginScreen from './pages/login-screen/LoginScreen';
 import NotFoundScreen from './pages/not-found-page/NotFoundScreen';
+import 'antd/dist/reset.css';
 
 function App() {
   return (
