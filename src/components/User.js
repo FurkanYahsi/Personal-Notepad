@@ -3,7 +3,7 @@ import UserConsumer from '../contexts/UserContext'
 
 
 const User = (props) => {
-    const {id, name, email, password} = props;
+    const {id, name, surname, email, password} = props;
   return (
     <UserConsumer> {
         value => {

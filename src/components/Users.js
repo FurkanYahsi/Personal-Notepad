@@ -14,6 +14,7 @@ const Users = () => {
                             <User
                                 id={user.id}
                                 name={user.name}
+                                surname={user.surname}
                                 email={user.email}
                                 password={user.password}
                             />                            
