@@ -7,6 +7,10 @@ const reducer = (state, action) => {
             return {
                 users : [...state.users, action.payload]
             }
+        case "LOGIN_USER" :
+            const isLogin = false;
+            if (state.users.filter(user => action.payload === user.email) !== null) isLogin = true;
+            return isLogin;
         default :
             return state
     }

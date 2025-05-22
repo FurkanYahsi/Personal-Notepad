@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import { useLoginForm } from "./LoginForm.logic";
 
 const LoginForm = () => {
-  const {contextHolder,form,handleSubmit,proceedLogin} = useLoginForm()
+  const {contextHolder,form,handleSubmit} = useLoginForm()
  
   return (   
     <div className='loginForm'>
@@ -18,11 +18,11 @@ const LoginForm = () => {
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
             style={{ maxWidth: 600 }}
-            onFinish = {proceedLogin}>
+            onFinish = {handleSubmit}>
             
               <Form.Item
                 label='Email::'
-                name='email'
+                name='Email'
                 rules={[{ required: true, message: 'Please enter your email!'}]}
               >
                 <Input type="text"/>
@@ -30,7 +30,7 @@ const LoginForm = () => {
 
               <Form.Item
                 label='Password::'
-                name='password'
+                name='Password'
                 rules={[{ required: true, message: 'Please enter your password!'}]}
               >
                     {/* Kontrol gerekli */}
@@ -44,7 +44,7 @@ const LoginForm = () => {
           </Form>
         </div>
         <h6>
-          <Link to={'/sign-up'}>Don't you have an account?</Link>
+          <Link to={'/sign-up'} style={{color:"#C1C6CC"}}>Don't you have an account?</Link>
         </h6>        
       </div>   
     </div>
