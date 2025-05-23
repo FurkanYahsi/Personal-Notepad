@@ -8,7 +8,7 @@ class LoginScreen extends Component {
       <div className='loginScreen'>
         <header>
           <LoginForm/>
-        </header>        
+        </header>
       </div>
     )
   }
