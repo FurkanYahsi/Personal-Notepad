@@ -60,7 +60,7 @@ const SignUpForm = () => {
               {/* Again Password Input */}
               <Form.Item
                 label='Password Again::'
-                name='Password Again'
+                name='PasswordAgain'
                 rules={[{ required: true, message: 'Please enter your password again!'}]}
               >
                     <Input.Password autoComplete="off" type="text"/>
