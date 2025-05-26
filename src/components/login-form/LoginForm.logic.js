@@ -26,6 +26,7 @@ export const useLoginForm = () => {
       const fetchUserData = (values) => {
         fetch('fake-db.json').then(response => {
           if(!response.ok) {          
+            console.log('zort')
             throw new Error(`HTTP error! Status: ${response.status}`)
           }
           return response.json();
