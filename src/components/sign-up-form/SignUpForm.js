@@ -24,6 +24,7 @@ const SignUpForm = () => {
               <Form.Item
                 label='Name::'
                 name='Name'
+                hasFeedback
                 rules={[{ required: true, message: 'Please enter your name!'}]}
               >
                 <Input type="text"/>
@@ -33,6 +34,7 @@ const SignUpForm = () => {
               <Form.Item
                 label='Surname::'
                 name='Surname'
+                hasFeedback
                 rules={[{ required: true, message: 'Please enter your surname!'}]}
               >
                 <Input type="text"/>
@@ -40,17 +42,28 @@ const SignUpForm = () => {
 
               {/* Email Input */}
               <Form.Item
-                label='Email::'
-                name='Email'
-                rules={[{ required: true, message: 'Please enter your email!'}]}
+                name="Email"
+                label="E-mail"
+                hasFeedback
+                rules={[
+                  {
+                    type: 'email',
+                    message: 'The input is not a valid E-mail!',
+                  },
+                  {
+                    required: true,
+                    message: 'Please enter your E-mail!',
+                  },
+                ]}
               >
-                <Input type="text"/>
+                <Input />
               </Form.Item>
 
               {/* Password Input */}
               <Form.Item
                 label='Password::'
                 name='Password'
+                hasFeedback
                 rules={[{ required: true, message: 'Please enter your password!'}]}
               >
                     {/* Kontrol gerekli */}
@@ -58,12 +71,27 @@ const SignUpForm = () => {
               </Form.Item>
 
               {/* Again Password Input */}
-              <Form.Item
-                label='Password Again::'
-                name='PasswordAgain'
-                rules={[{ required: true, message: 'Please enter your password again!'}]}
+             <Form.Item
+                name="PasswordConfirmation"
+                label="Confirm Password::"
+                dependencies={['Password']}
+                hasFeedback
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please confirm your password!',
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue('Password') === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(new Error('The passwords do not match!'));
+                    },
+                  }),
+                ]}
               >
-                    <Input.Password autoComplete="off" type="text"/>
+                <Input.Password />
               </Form.Item>
 
               {/* Submit Button */}

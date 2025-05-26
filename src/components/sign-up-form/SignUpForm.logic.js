@@ -1,55 +1,48 @@
 import { Form, notification } from "antd";
 import { useNavigate } from "react-router-dom";
 
+ // TODO: Toast messages will be reviewed 
+
 export const useSignUpForm = () => {
     const [form] = Form.useForm();
     const [api,contextHolder] = notification.useNotification();
     const navigate = useNavigate();
 
-    const handleSubmit = async () => {
+   const handleSubmit = async () => {
+  try {
+    const values = await form.validateFields();
 
-      try{
-      const values = await form.validateFields();
-
-      form.validateFields().then((values)=> {
-      })
-      .catch((error)=> {
-        console.log('catch bloğu:' + error.message)
-        // if ((error.message !== "Error-PasswordsAreNotSame") && (error.message !== "Error-EmailIsNotValid")) {
-          api.open ({
-          message:"",
-          //The empty fields are indicated to user in one toast message.
-          description: error.errorFields?.map((item) => {
-            return(<div>{item.name[0]} can not be empty! </div>);
-          }),
-          placement:"bottomLeft",
-          duration:3,
-          style:{background:'#999999'}
-        })
-        // }
-      })
-
-      
-        // areFieldsEmpty(values);
-        if (!arePasswordsSame(values))
-          throw new Error("Error-PasswordsAreNotSame");
-
-        const isEmailOK = await fetchUserEmails(values);
-
-        if (!isEmailOK) {
-          throw new Error("Error-EmailIsNotValid");
-        }
-        navigate("/home");
-           
-      }catch(error){
-       
-      }
+    if (!arePasswordsSame(values)) {
+      throw new Error("Error-PasswordsAreNotSame");
     }
+
+    const isEmailOK = await fetchUserEmails(values);
+    if (!isEmailOK) {
+      throw new Error("Error-EmailIsNotValid");
+    }
+
+    navigate("/home");
+
+  } catch (error) {
+    if (error.errorFields) {
+      api.open({
+        message: "",
+        description: error.errorFields.map((item) => (
+          <div key={item.name[0]}>{item.name[0]} can not be empty!</div>
+        )),
+        placement: "bottomLeft",
+        duration: 3,
+        style: { background: "#999999" },
+      });
+    }
+  }
+};
+
    
     //If passwords are not same, it is indicated to user in a toast message.
      const arePasswordsSame=(values) =>{
 
-      if (values.Password !== values.PasswordAgain) {
+      if (values.Password !== values.PasswordConfirmation) {
         api.open ({
           message:"",
           description: "The passwords are not same!",
@@ -92,40 +85,9 @@ export const useSignUpForm = () => {
       }
     return !isEmailExist;
     }
-
   return {
     contextHolder,
     form,
     handleSubmit,
   }
 }
-
-
- // const areFieldsEmpty = (values) => {
-    //   const arr = [];
-    //   if (values.Name === '' || values.Name === null) {
-    //     arr[arr.length] = 'Name'
-    //   }
-    //   if (values.Surname === '' || values.Surname === null) {
-    //     arr[arr.length] = 'Surname'
-    //   }
-    //   if (values.Email === '' || values.Email === null) {
-    //     arr[arr.length] = 'Email'
-    //   }
-    //   if (values.Password === '' || values.Password === null) {
-    //     arr[arr.length] = 'Password'
-    //   }
-    //   if (values.PasswordAgain === '' || values.PasswordAgain === null) {
-    //     arr[arr.length] = 'Password Again'
-    //   }
-
-    //   // api.open ({
-    //   //   message:"",
-    //   //   description: arr.map((item) => {
-    //   //     return(<div>{item} can not be empty! </div>);
-    //   //   }),
-    //   //   placement:"bottomLeft",
-    //   //   duration:3,
-    //   //   style:{background:'#999999'}
-    //   // })
-    // }
