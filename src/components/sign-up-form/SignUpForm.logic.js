@@ -8,6 +8,7 @@ export const useSignUpForm = () => {
 
     const handleSubmit = async () => {
 
+      try{
       const values = await form.validateFields();
 
       form.validateFields().then((values)=> {
@@ -28,7 +29,7 @@ export const useSignUpForm = () => {
         // }
       })
 
-      try{
+      
         // areFieldsEmpty(values);
         if (!arePasswordsSame(values))
           throw new Error("Error-PasswordsAreNotSame");
