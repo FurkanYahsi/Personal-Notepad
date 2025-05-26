@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path='/login' element={<LoginScreen/>}></Route>  
         <Route path='/home' element={<HomeScreen/>}></Route>
-        <Route path='/sign-up' element={<SignUpScreen/>}></Route>     
+        <Route path='/sign-up' element={<SignUpScreen/>}></Route>
         <Route path='*' element={<NotFoundScreen/>}></Route>
       </Routes>
     </div>

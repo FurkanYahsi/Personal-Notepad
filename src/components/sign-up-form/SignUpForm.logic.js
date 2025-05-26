@@ -9,34 +9,34 @@ export const useSignUpForm = () => {
     const navigate = useNavigate();
 
    const handleSubmit = async () => {
-  try {
-    const values = await form.validateFields();
+    try {
+      const values = await form.validateFields();
 
-    if (!arePasswordsSame(values)) {
-      throw new Error("Error-PasswordsAreNotSame");
+      if (!arePasswordsSame(values)) {
+        throw new Error("Error-PasswordsAreNotSame");
+      }
+
+      const isEmailOK = await fetchUserEmails(values);
+      if (!isEmailOK) {
+        throw new Error("Error-EmailIsNotValid");
+      }
+
+      navigate("/home");
+
+    } catch (error) {
+      if (error.errorFields) {
+        api.open({
+          message: "",
+          description: error.errorFields.map((item) => (
+            <div key={item.name[0]}>{item.name[0]} can not be empty!</div>
+          )),
+          placement: "bottomLeft",
+          duration: 3,
+          style: { background: "#999999" },
+        });
+      }
     }
-
-    const isEmailOK = await fetchUserEmails(values);
-    if (!isEmailOK) {
-      throw new Error("Error-EmailIsNotValid");
-    }
-
-    navigate("/home");
-
-  } catch (error) {
-    if (error.errorFields) {
-      api.open({
-        message: "",
-        description: error.errorFields.map((item) => (
-          <div key={item.name[0]}>{item.name[0]} can not be empty!</div>
-        )),
-        placement: "bottomLeft",
-        duration: 3,
-        style: { background: "#999999" },
-      });
-    }
-  }
-};
+  };
 
    
     //If passwords are not same, it is indicated to user in a toast message.

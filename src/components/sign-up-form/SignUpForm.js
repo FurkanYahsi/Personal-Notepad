@@ -5,8 +5,8 @@ import { useSignUpForm } from "./SignUpForm.logic";
 
 const SignUpForm = () => {
   const {contextHolder,form,handleSubmit} = useSignUpForm()
- 
-  return (   
+
+  return (
     <div className='signUpForm'>
       {contextHolder}
       <div className='card'>
@@ -19,7 +19,7 @@ const SignUpForm = () => {
             wrapperCol={{ span: 24 }}
             style={{ maxWidth: 600 }}
             onFinish = {handleSubmit}>
-              
+
               {/* Name Input */}
               <Form.Item
                 label='Name::'
