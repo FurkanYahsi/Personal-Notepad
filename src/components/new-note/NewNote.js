@@ -1,27 +1,41 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import './NewNote.css'
+
 import {useNewNote} from './NewNote.logic'
 import { Form, Input, Button } from 'antd'
+import { v4 as uuidv4 } from 'uuid';
 
-const NewNote = () => {
+uuidv4();
+
+const NewNote = (props) => {
+    const {id, header, body, date} = props;
     const {form} = useNewNote();
 
-  return (
-    <Form
-        form={form}
-        style={{paddingBlock:32}}
-        labelCol={{span:6}}
-        wrapperCol={{span:14}}
-    >
-        <Form.Item name="header" label="Header" >
-            <Input/>
-        </Form.Item>
+    return (
 
-        <Form.Item name="body" label="Body" rules={[{ required: true }]}>
-            <Input.TextArea rows={6} />
-        </Form.Item>
-        <Button></Button>
-    </Form>
-  )
+        <div className='newNote'>
+            <Form
+                className='form'
+                form={form}
+                wrapperCol={{span:18}}
+            >
+                <Form.Item name="header" label="Header" >
+                    <Input/>
+                </Form.Item>
+
+                <Form.Item name="body" label="Body" rules={[{ required: true }]}>
+                    <Input.TextArea rows={10} />
+                </Form.Item>
+                <Form.Item  className='formButtonWrapper'>
+                    <Button color="default" variant="solid" onClick={() => window.location.reload()}>
+                        Add
+                    </Button>
+                </Form.Item>
+            </Form>
+        </div>
+            
+    )
 }
 
 export default NewNote

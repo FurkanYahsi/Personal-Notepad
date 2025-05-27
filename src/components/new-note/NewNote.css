@@ -1,0 +1,14 @@
+.newNote {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.form {
+    width: 70vw;
+}
+
+.formButtonWrapper {
+    display: flex;
+    justify-content: center;
+}

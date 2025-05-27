@@ -9,15 +9,14 @@ const LoginForm = () => {
   return (   
     <div className='loginForm'>
       {contextHolder}
-      <div className='card'>
-        <div className="card-header" style={{color:'white'}}>Welcome Back!</div>
-        <div className="card-body">
+      <div>
+        <p className="welcomeBackText">Welcome Back!</p>
+        <div>
           <Form
             form={form}
             name="basic"
-            labelCol={{ span: 24 }}
-            wrapperCol={{ span: 24 }}
-            style={{ maxWidth: 600 }}
+            labelCol={{ span: '24' }}
+            wrapperCol={{ span: '24px' }}
             onFinish = {handleSubmit}>
             
               <Form.Item
@@ -44,7 +43,8 @@ const LoginForm = () => {
           </Form>
         </div>
         <h6>
-          <Link to={'/sign-up'} style={{color:"#C1C6CC"}}>Don't you have an account?</Link>
+          {/* CSS'e yazsam color çakışmadan dolayı default mavi oluyor. */}
+          <Link to={'/sign-up'} style={{color:"#C1C6CC"}}>Don't have an account?</Link>
         </h6>        
       </div>   
     </div>

@@ -10,14 +10,13 @@ const SignUpForm = () => {
     <div className='signUpForm'>
       {contextHolder}
       <div className='card'>
-        <div className="card-header" style={{color:'white'}}>Welcome!</div>
+        <div className="card-header welcomeText" >Welcome!</div>
         <div className="card-body">
           <Form
             form={form}
             name="basic"
-            labelCol={{ span: 24 }}
-            wrapperCol={{ span: 24 }}
-            style={{ maxWidth: 600 }}
+            labelCol={{ span: '24' }}
+            wrapperCol={{ span: '24px' }}
             onFinish = {handleSubmit}>
 
               {/* Name Input */}
@@ -42,8 +41,8 @@ const SignUpForm = () => {
 
               {/* Email Input */}
               <Form.Item
+                label="E-mail::"
                 name="Email"
-                label="E-mail"
                 hasFeedback
                 rules={[
                   {
@@ -102,7 +101,7 @@ const SignUpForm = () => {
           </Form>
         </div>
         <h6>
-          <Link to={'/login'} style={{color:"#C1C6CC"}}>Do you have an account?</Link>
+          <Link to={'/login'} style={{color:"#C1C6CC"}}>Have an account?</Link>
         </h6>        
       </div>   
     </div>

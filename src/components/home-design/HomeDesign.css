@@ -1,0 +1,43 @@
+.homeDesign {    
+    display: flex;
+    width: 100vw; 
+    height: 100vh;
+}
+
+.sidebarWrapper {
+  width: 10%;
+  min-width: 120px;
+  height: 100vh;
+}
+
+.sidebarMenu {
+  height: 100%;
+}
+
+.upperbarAndContentWrapper {
+    width: 90%; 
+    position: relative;
+}
+
+.upperbar {
+    background-color: #001529;
+    width: 90%;
+    height: 5%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: fixed;
+}
+
+.logoutButton {
+    background-color: #001529;
+    color: white;
+    margin-right: 6px;
+}
+
+.newNoteWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
