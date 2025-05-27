@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import './NewNote.css'
 
 import {useNewNote} from './NewNote.logic'
@@ -8,9 +7,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 uuidv4();
 
-const NewNote = (props) => {
-    const {id, header, body, date} = props;
-    const {form} = useNewNote();
+const NewNote = () => {
+    const {form, handleAddNote} = useNewNote();
 
     return (
 
@@ -20,15 +18,18 @@ const NewNote = (props) => {
                 form={form}
                 wrapperCol={{span:18}}
             >
-                <Form.Item name="header" label="Header" >
+                <Form.Item name="header" label="Header" rules={[{ required: true, min: 5, message: "Header must be at least 5 characters" }]}>
                     <Input/>
                 </Form.Item>
 
-                <Form.Item name="body" label="Body" rules={[{ required: true }]}>
+                <Form.Item name="body" label="Body" rules={[{ required: true, min: 20, message: "Note must be at least 20 characters"  }]}>
                     <Input.TextArea rows={10} />
                 </Form.Item>
                 <Form.Item  className='formButtonWrapper'>
-                    <Button color="default" variant="solid" onClick={() => window.location.reload()}>
+                    <Button color="default" variant="solid" onClick={() => {
+                        handleAddNote();
+                        window.location.reload() //Yoruma da alınabilir
+                        }}>
                         Add
                     </Button>
                 </Form.Item>

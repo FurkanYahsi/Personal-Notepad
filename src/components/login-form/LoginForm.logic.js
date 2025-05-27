@@ -40,7 +40,10 @@ export const useLoginForm = () => {
       const isUserValid = (data, values) => {
         let flag = false;        
         data.users.map((user) => {
-          if ((user.email === values.Email) && (user.password === values.Password)) flag = true;          
+          if ((user.email === values.Email) && (user.password === values.Password)) {
+            flag = true;
+            localStorage.setItem('currentUser', values.Email)
+          }       
         })
         if (!flag) {
           api.open ({
