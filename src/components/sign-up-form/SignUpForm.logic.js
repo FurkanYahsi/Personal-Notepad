@@ -38,7 +38,6 @@ export const useSignUpForm = () => {
     }
   };
 
-   
     //If passwords are not same, it is indicated to user in a toast message.
      const arePasswordsSame=(values) =>{
 

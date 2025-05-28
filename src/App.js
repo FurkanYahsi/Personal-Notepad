@@ -11,10 +11,11 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path='/login' element={<LoginScreen/>}></Route>  
-        <Route path='/home' element={<HomeScreen/>}></Route>
-        <Route path='/sign-up' element={<SignUpScreen/>}></Route>
-        <Route path='*' element={<NotFoundScreen/>}></Route>
+        <Route path='/login' element={<LoginScreen/>}/>
+        <Route path='/home' element={<HomeScreen/>}/>
+        <Route path='/home/*' element={<HomeScreen/>}/>
+        <Route path='/sign-up' element={<SignUpScreen/>}/>
+        <Route path='*' element={<NotFoundScreen/>}/>
       </Routes>
     </div>
   );

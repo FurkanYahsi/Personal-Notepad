@@ -1,33 +1,35 @@
-import React from 'react'
 
-const NoteContext = React.createContext();
+// import React from 'react'
 
-const reducer = (state, action) => {
-    switch (action.type) {
-        case "ADD_NOTE":
-            return {
-                notes : [...state.notes, action.payload]
-            }
-        default:
-            return state;
-    }
-}
+// const NoteContext = React.createContext();
 
-const NoteProvider = (state) => {
-    state = {
-        notes:[], 
-        dispatch : action => {
-            setState(state => reducer(state, action))
-        }
-    }
+// const reducer = (state, action) => {
+//     switch (action.type) {
+//         case "ADD_NOTE":
+//             return {
+//                 notes : [...state.notes, action.payload]
+//             }
+//         default:
+//             return state;
+//     }
+// }
 
-  return (
-    <NoteContext.Provider value={state}>
-        {props}
-    </NoteContext.Provider>
-  )
-}
+// const NoteProvider = (state) => {
+//     state = {
+//         notes:[], 
+//         dispatch : action => {
+//             setState(state => reducer(state, action))
+//         }
+//     }
 
-const NoteConsumer = NoteContext.Consumer;
+//   return (
+//     <NoteContext.Provider value={state}>
+//         {props}
+//     </NoteContext.Provider>
+//   )
+// }
 
-export default NoteConsumer;
+// const NoteConsumer = NoteContext.Consumer;
+
+// export default NoteConsumer;
+

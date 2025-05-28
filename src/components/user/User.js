@@ -1,28 +1,28 @@
-import PropTypes from 'prop-types'
-import UserConsumer from '../../contexts/UserContext'
+// import PropTypes from 'prop-types'
+// import UserConsumer from '../../contexts/UserContext'
 
 
-const User = (props) => {
-  const {id, name, surname, email, password} = props;
+// const User = (props) => {
+//   const {id, name, surname, email, password} = props;
 
-  const onLoginUser = () => {
-    dispatch({type:"LOGIN_USER", payload: email})
-  }
-  return (
-    <UserConsumer>
-      {
-        value => {
-            const{dispatch} = value;
-            return (
-              <div>
+//   const onLoginUser = () => {
+//     dispatch({type:"LOGIN_USER", payload: email})
+//   }
+//   return (
+//     <UserConsumer>
+//       {
+//         value => {
+//             const{dispatch} = value;
+//             return (
+//               <div>
                     
-              </div>
-            )
+//               </div>
+//             )
 
-        }
-      }
-    </UserConsumer>
-  )
-}
+//         }
+//       }
+//     </UserConsumer>
+//   )
+// }
 
-export default User
+// export default User

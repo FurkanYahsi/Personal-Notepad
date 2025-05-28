@@ -25,8 +25,7 @@ export const useLoginForm = () => {
       //Search every object in JSON file and the user can go to Home Page if there is one match.
       const fetchUserData = (values) => {
         fetch('fake-db.json').then(response => {
-          if(!response.ok) {          
-            console.log('zort')
+          if(!response.ok) {         
             throw new Error(`HTTP error! Status: ${response.status}`)
           }
           return response.json();
@@ -39,9 +38,10 @@ export const useLoginForm = () => {
       }      
       const isUserValid = (data, values) => {
         let flag = false;        
-        data.users.map((user) => {
+        data.users.some((user) => {
           if ((user.email === values.Email) && (user.password === values.Password)) {
             flag = true;
+            //Which user is loggedin to system
             localStorage.setItem('currentUser', values.Email)
           }       
         })
