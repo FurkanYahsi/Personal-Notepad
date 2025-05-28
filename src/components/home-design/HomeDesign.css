@@ -35,6 +35,11 @@
     margin-right: 6px;
 }
 
+.icon {
+    color: white;
+    cursor: pointer;
+}
+
 .newNoteWrapper {
     display: flex;
     justify-content: center;
@@ -54,4 +59,8 @@
     display: flex;
  
     box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+}
+
+.textColor {
+    color:#d4d4d4;
 }
