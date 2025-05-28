@@ -48,11 +48,14 @@ const HomeDesign = () => {
               {showAddNote && <NewNote/>}
               {!showAddNote && selectedNote && (
                 <div className='showNote'>
-                  <div>
-                    <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+                  <div style={{width:'100%'}}>
+                    <div style={{display:'flex'}}>
                       <h2 style={{color:'#d4d4d4', textAlign:'center', flex:1}}>{selectedNote.header} </h2>
-                      <h6 style={{color:'#d4d4d4'}}>{new Date(selectedNote.date).toLocaleString()}</h6>
-                      <ToolOutlined style={{color:'white', cursor:'pointer'}} onClick={()=>handleEditNoteButton()}/>
+                      <div>                        
+                        <ToolOutlined style={{color:'white', cursor:'pointer'}} onClick={()=>handleEditNoteButton()}/> 
+                        <h6 style={{color:'#d4d4d4'}}>{new Date(selectedNote.date).toLocaleString()}</h6>
+                      </div>
+                      
                     </div>        
                     <p style={{color:'#d4d4d4'}}>{selectedNote.body}</p>
                     <DeleteOutlined style={{color:'white', cursor:'pointer'}} onClick={()=>handleDeleteNoteButton()}/>

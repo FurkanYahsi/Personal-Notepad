@@ -23,6 +23,7 @@ export const useHomeDesign = () => {
 
     const handleLogoutButton = () => {
       localStorage.removeItem('currentUser');
+      localStorage.removeItem('guest');
       localStorage.removeItem(null);
       navigate("/login");
     }

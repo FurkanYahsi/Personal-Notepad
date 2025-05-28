@@ -4,8 +4,6 @@ import HomeDesign from '../../components/home-design/HomeDesign'
 import { useNavigate } from 'react-router-dom'
 
 const HomeScreen = () => {
-  
-  
     const navigate = useNavigate();
     useEffect(() => {
       if(localStorage.getItem('currentUser') === null) {

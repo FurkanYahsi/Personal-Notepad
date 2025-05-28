@@ -20,7 +20,7 @@ export const useSignUpForm = () => {
       if (!isEmailOK) {
         throw new Error("Error-EmailIsNotValid");
       }
-
+      localStorage.setItem('currentUser', 'guest');
       navigate("/home");
 
     } catch (error) {
