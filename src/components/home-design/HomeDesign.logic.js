@@ -22,10 +22,6 @@ export const useHomeDesign = () => {
     }
 
     const handleLogoutButton = () => {
-      // console.log(localStorage.getItem('currentUser'));
-      //  localStorage.setItem('currentUser', null);
-      // console.log(localStorage.getItem('currentUser'));
-
       localStorage.removeItem('currentUser');
       localStorage.removeItem(null);
       navigate("/login");
@@ -52,6 +48,10 @@ export const useHomeDesign = () => {
       setNotes(updatedNotes);
       setSelectedNote(null);
     }
+
+    const handleEditNoteButton = () => {
+      
+    }
    
   return {
     showAddNote,
@@ -60,6 +60,7 @@ export const useHomeDesign = () => {
     notes,
     selectedNote,
     handleMenuClick,
-    handleDeleteNoteButton
+    handleDeleteNoteButton,
+    handleEditNoteButton
   }
 }

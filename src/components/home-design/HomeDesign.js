@@ -14,7 +14,8 @@ const HomeDesign = () => {
       notes,
       selectedNote,
       handleMenuClick,
-      handleDeleteNoteButton
+      handleDeleteNoteButton,
+      handleEditNoteButton
     } = useHomeDesign();
 
     //Dinamik oluşturmak için içeri aldık
@@ -51,10 +52,10 @@ const HomeDesign = () => {
                     <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
                       <h2 style={{color:'#d4d4d4', textAlign:'center', flex:1}}>{selectedNote.header} </h2>
                       <h6 style={{color:'#d4d4d4'}}>{new Date(selectedNote.date).toLocaleString()}</h6>
-                      <ToolOutlined style={{color:'white', cursor:'pointer'}}/>
+                      <ToolOutlined style={{color:'white', cursor:'pointer'}} onClick={()=>handleEditNoteButton()}/>
                     </div>        
                     <p style={{color:'#d4d4d4'}}>{selectedNote.body}</p>
-                    <DeleteOutlined style={{color:'white', cursor:'pointer'}} onClick={()=>handleDeleteNoteButton(selectedNote.id)}/>
+                    <DeleteOutlined style={{color:'white', cursor:'pointer'}} onClick={()=>handleDeleteNoteButton()}/>
                   </div>
                 </div>
               )}
