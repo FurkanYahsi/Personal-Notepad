@@ -6,7 +6,7 @@ import NewNote from '../new-note/NewNote';
 import { format } from "date-fns";
 
 const HomeDesign = () => {
-
+  
   const {
     showAddNote,
     handleNewNoteButton,
@@ -15,7 +15,9 @@ const HomeDesign = () => {
     selectedNote,
     handleMenuClick,
     handleDeleteNoteButton,
-    handleEditNoteButton
+    defaultHeader,
+    defaultBody,
+    isEditNote
   } = useHomeDesign();
 
   //Dinamik oluşturmak için içeri aldık
@@ -42,14 +44,17 @@ const HomeDesign = () => {
             <LogoutOutlined/>Logout</Button>
         </div>
          <div className='newNoteWrapper'>
-          {showAddNote && <NewNote/>}
+          {(showAddNote) && <NewNote defaultHeader={defaultHeader} defaultBody={defaultBody}/>}
           {!showAddNote && selectedNote && (
             <div className='showNote'>
               <div style={{width:'100%'}}>
                 <div style={{display:'flex'}}>
                   <h2 style={{color:'#d4d4d4', flex:1, position:'absolute', left:'10%', width:'80%'}}>{selectedNote.header} </h2>
                   <h6 style={{width:'100%', height:'50px', display:'flex', justifyContent:'flex-end'}} className='textColor'>{format(new Date(selectedNote.date), "dd-LLL-yyyy HH:mm").toLocaleString()}</h6>
-                  <ToolOutlined className='icon' onClick={()=>handleEditNoteButton()}/> 
+                  <ToolOutlined className='icon' onClick={()=> {
+                    handleNewNoteButton(selectedNote.header, selectedNote.body, true);
+                    handleDeleteNoteButton();
+                    }}/> 
                 </div>        
                 <p className='textColor'>{selectedNote.body}</p>
                 <DeleteOutlined className='icon' onClick={()=>handleDeleteNoteButton()}/>
@@ -59,7 +64,7 @@ const HomeDesign = () => {
           {!showAddNote && !selectedNote && (<div>Please select a note or add a new one.</div>)}
         </div>
       </div> 
-      {!showAddNote && <FloatButton icon={<PlusOutlined />} onClick={handleNewNoteButton} />}
+      {!showAddNote && <FloatButton icon={<PlusOutlined />} onClick={()=>handleNewNoteButton('','',false)} />}
     </div>
   )
 }

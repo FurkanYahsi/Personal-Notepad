@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom'
 
 export const useHomeDesign = () => {
     const [showAddNote, setShowAddNote] = useState(false);
+    const [defaultHeader, setDefaultHeader] = useState('');
+    const [defaultBody, setDefaultBody] = useState('');
+    const [isEditNote, setIsEditNote] = useState(false);
     const [notes, setNotes] = useState([]);
     const [selectedNote, setSelectedNote] = useState(null);
     const navigate = useNavigate();
@@ -16,8 +19,11 @@ export const useHomeDesign = () => {
       }
     }, [currentUser, showAddNote]);
 
-    const handleNewNoteButton = () => {
-      setShowAddNote(!showAddNote);
+    const handleNewNoteButton = (oldHeader, oldBody, editNote) => {
+      setShowAddNote(true);
+      setDefaultHeader(oldHeader);
+      setDefaultBody(oldBody);
+      setIsEditNote(editNote);
       setSelectedNote(null);
     }
 
@@ -48,12 +54,7 @@ export const useHomeDesign = () => {
 
       setNotes(updatedNotes);
       setSelectedNote(null);
-    }
-
-    const handleEditNoteButton = () => {
-      
-    }
-   
+    }   
   return {
     showAddNote,
     handleNewNoteButton,
@@ -62,6 +63,8 @@ export const useHomeDesign = () => {
     selectedNote,
     handleMenuClick,
     handleDeleteNoteButton,
-    handleEditNoteButton
+    defaultHeader,
+    defaultBody,
+    isEditNote
   }
 }
