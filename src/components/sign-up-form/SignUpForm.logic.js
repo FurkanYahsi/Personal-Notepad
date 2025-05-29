@@ -32,7 +32,7 @@ export const useSignUpForm = () => {
           )),
           placement: "bottomLeft",
           duration: 3,
-          style: { background: "#999999" },
+          className:'toastMessageBackground',
         });
       }
     }
@@ -47,7 +47,7 @@ export const useSignUpForm = () => {
           description: "The passwords are not same!",
           placement:"bottomLeft",
           duration:3,
-          style:{background:'#999999'}
+          className:'toastMessageBackground',
         })
         return false;
       }
@@ -57,7 +57,7 @@ export const useSignUpForm = () => {
     const fetchUserEmails = async (values) => {
       const response = await fetch('fake-db.json');
        if(!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`)
+          throw new Error('JSON file could not found!');
         }
 
       const data = await response.json();
@@ -78,7 +78,7 @@ export const useSignUpForm = () => {
         description: "This email is already used!",
         placement:"bottomLeft",
         duration:3,
-        style:{background:'#999999'}
+        className:'toastMessageBackground',
         }) 
         return false;
       }

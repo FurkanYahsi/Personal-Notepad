@@ -18,7 +18,6 @@ const HomeDesign = () => {
     defaultHeader,
     defaultBody,
     defaultId,
-    isEditNote
   } = useHomeDesign();
 
   //Dinamik oluşturmak için içeri aldık
@@ -48,12 +47,12 @@ const HomeDesign = () => {
           {(showAddNote) && <NewNote defaultId={defaultId} defaultHeader={defaultHeader} defaultBody={defaultBody}/>}
           {!showAddNote && selectedNote && (
             <div className='showNote'>
-              <div style={{width:'100%'}}>
-                <div style={{display:'flex'}}>
-                  <h2 style={{color:'#d4d4d4', flex:1, position:'absolute', left:'10%', width:'80%'}}>{selectedNote.header} </h2>
-                  <h6 style={{width:'100%', height:'50px', display:'flex', justifyContent:'flex-end'}} className='textColor'>{format(new Date(selectedNote.date), "dd-LLL-yyyy HH:mm").toLocaleString()}</h6>
+              <div className='fullWidth'>
+                <div className='noteContainer'>
+                  <h2 className='noteHeader'>{selectedNote.header} </h2>
+                  <h6 className='noteBody'>{format(new Date(selectedNote.date), "dd-LLL-yyyy HH:mm").toLocaleString()}</h6>
                   <ToolOutlined className='icon' onClick={()=> {
-                    handleNewNoteButton(selectedNote.id, selectedNote.header, selectedNote.body, true);
+                    handleNewNoteButton(selectedNote.id, selectedNote.header, selectedNote.body);
                     }}/> 
                 </div>        
                 <p className='textColor'>{selectedNote.body}</p>
@@ -61,10 +60,10 @@ const HomeDesign = () => {
               </div>
             </div>
           )}
-          {!showAddNote && !selectedNote && (<div>Please select a note or add a new one.</div>)}
+          {!showAddNote && (<div>Please select a note or add a new one.</div>)}
         </div>
       </div> 
-      {!showAddNote && <FloatButton icon={<PlusOutlined />} onClick={()=>handleNewNoteButton(null,'','',false)} />}
+      {!showAddNote && <FloatButton icon={<PlusOutlined />} onClick={()=>handleNewNoteButton(null,'','')} />}
     </div>
   )
 }

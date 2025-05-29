@@ -22,3 +22,7 @@
 .linkText {
     color:"#C1C6CC";
 }
+
+.toastMessageBackground {
+    background: #999999;
+}

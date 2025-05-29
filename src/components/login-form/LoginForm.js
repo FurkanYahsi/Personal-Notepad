@@ -19,26 +19,23 @@ const LoginForm = () => {
             wrapperCol={{ span: '24px' }}
             onFinish = {handleSubmit}>
             
-              <Form.Item
-                label='Email::'
-                name='Email'
-                rules={[{ required: true, message: 'Please enter your email!'}]}
-              >
-                <Input type="text"/>
-              </Form.Item>
-
-              <Form.Item
-                label='Password::'
-                name='Password'
-                rules={[{ required: true, message: 'Please enter your password!'}]}
-              >
-                    {/* Kontrol gerekli */}
-                    <Input.Password autoComplete="off" type="text"/>
-              </Form.Item>
-
-              <Form.Item label={null}>
-                <Button type="primary" onClick={handleSubmit}>Submit</Button>
-              </Form.Item>
+            <Form.Item
+              label='Email::'
+              name='Email'
+              rules={[{ required: true, message: 'Please enter your email!'}]}
+            >
+              <Input type="text"/>
+            </Form.Item>
+            <Form.Item
+              label='Password::'
+              name='Password'
+              rules={[{ required: true, message: 'Please enter your password!'}]}
+            >
+              <Input.Password autoComplete="off" type="text"/>
+            </Form.Item>
+            <Form.Item label={null}>
+              <Button type="primary" onClick={handleSubmit}>Submit</Button>
+            </Form.Item>
 
           </Form>
         </div>

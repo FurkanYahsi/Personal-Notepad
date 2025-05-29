@@ -101,6 +101,7 @@ const SignUpForm = () => {
           </Form>
         </div>
         <h6>
+          {/* CSS'e yazsam color çakışmadan dolayı default mavi oluyor. */}
           <Link to={'/login'} style={{color:"#C1C6CC"}}>Have an account?</Link>
         </h6>        
       </div>   

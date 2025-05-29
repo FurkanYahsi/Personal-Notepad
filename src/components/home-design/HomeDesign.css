@@ -64,3 +64,27 @@
 .textColor {
     color:#d4d4d4;
 }
+
+.noteHeader {
+    color: #d4d4d4;
+    flex:1;
+    position: absolute;
+    left: 10%;
+    width: 80%;
+}
+
+.noteBody {
+    color: #d4d4d4;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.fullWidth {
+    width: 100%;
+}
+
+.noteContainer {
+    display: flex;
+}
