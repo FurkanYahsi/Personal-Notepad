@@ -2,11 +2,11 @@ import { Form, notification } from "antd";
 import { v4 as uuidv4 } from 'uuid';
 
 
-export const useNewNote = (defaultHeader, defaultBody) => {
+export const useNewNote = (defaultId, defaultHeader, defaultBody) => {
     const [form] = Form.useForm();
     const [api,contextHolder] = notification.useNotification();
 
-    const handleAddNote = (defaultHeader, defaultBody) => {
+    const handleAddNote = (defaultId, defaultHeader, defaultBody) => {
         
         form.validateFields().then(values => {
         const userEmail = localStorage.getItem("currentUser");
@@ -19,18 +19,34 @@ export const useNewNote = (defaultHeader, defaultBody) => {
                 style:{background:'#999999'}
             })
         }
-        
-        const newNote = {
-            id: uuidv4(),
-            header: defaultHeader + values.header,
-            body: defaultBody + values.body,
-            date: new Date().toLocaleString()
-        };
+
         // Get all notes of currentUser
         const existingNotesFromFile = localStorage.getItem(userEmail);
         const existingNotes = existingNotesFromFile ? JSON.parse(existingNotesFromFile) : [];
-        // Add new note
-        const updatedNotes = [...existingNotes, newNote];
+        let newNote;
+        let updatedNotes;
+
+        if (defaultId === null) {
+            newNote = {            
+                id: uuidv4(),
+                header: defaultHeader + values.header,
+                body: defaultBody + values.body,
+                date: new Date().toLocaleString()
+            }; 
+            // Add note to list
+            updatedNotes = [...existingNotes, newNote];
+                    
+        } else {
+            existingNotes.map((note)=> {
+                if (note.id === defaultId) {
+                    note.header=defaultHeader + values.header;
+                    note.body=defaultBody + values.body;
+                    note.date= new Date().toLocaleString();
+                }
+            })
+            console.log(existingNotes);
+            updatedNotes = [...existingNotes]; //Sorulacak-------------------------------------------------------------------------------------------
+        }
         // Save to localStorage
         localStorage.setItem(userEmail, JSON.stringify(updatedNotes));
         }).catch((error) => {console.log(error)});
@@ -39,6 +55,7 @@ export const useNewNote = (defaultHeader, defaultBody) => {
     return {
         form,
         handleAddNote,
+        defaultId,
         defaultHeader, 
         defaultBody
     }

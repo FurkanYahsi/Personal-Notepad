@@ -5,6 +5,7 @@ export const useHomeDesign = () => {
     const [showAddNote, setShowAddNote] = useState(false);
     const [defaultHeader, setDefaultHeader] = useState('');
     const [defaultBody, setDefaultBody] = useState('');
+    const [defaultId, setDefaultId] = useState(null);
     const [isEditNote, setIsEditNote] = useState(false);
     const [notes, setNotes] = useState([]);
     const [selectedNote, setSelectedNote] = useState(null);
@@ -19,12 +20,15 @@ export const useHomeDesign = () => {
       }
     }, [currentUser, showAddNote]);
 
-    const handleNewNoteButton = (oldHeader, oldBody, editNote) => {
+    const handleNewNoteButton = (id, oldHeader, oldBody, editNote) => {
+      if (id !== null) {
+        setDefaultId(id);
+      }
       setShowAddNote(true);
       setDefaultHeader(oldHeader);
       setDefaultBody(oldBody);
       setIsEditNote(editNote);
-      setSelectedNote(null);
+      // setSelectedNote(null);
     }
 
     const handleLogoutButton = () => {
@@ -63,6 +67,7 @@ export const useHomeDesign = () => {
     selectedNote,
     handleMenuClick,
     handleDeleteNoteButton,
+    defaultId,
     defaultHeader,
     defaultBody,
     isEditNote

@@ -4,7 +4,7 @@ import {useNewNote} from './NewNote.logic'
 import { Form, Input, Button } from 'antd'
 
 const NewNote = (props) => {
-    const{defaultHeader, defaultBody} = props;
+    const{defaultId, defaultHeader, defaultBody} = props;
     const {form, handleAddNote} = useNewNote();
     return (
 
@@ -22,7 +22,7 @@ const NewNote = (props) => {
                 </Form.Item>
                 <Form.Item  className='formButtonWrapper'>
                     <Button color="default" variant="solid" onClick={() => {
-                        handleAddNote('','');
+                        handleAddNote(defaultId,'','');
                         // window.location.reload() //Refresh the page to show headers in sidebar
                         }}>
                         Add

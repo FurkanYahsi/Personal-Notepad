@@ -17,6 +17,7 @@ const HomeDesign = () => {
     handleDeleteNoteButton,
     defaultHeader,
     defaultBody,
+    defaultId,
     isEditNote
   } = useHomeDesign();
 
@@ -44,7 +45,7 @@ const HomeDesign = () => {
             <LogoutOutlined/>Logout</Button>
         </div>
          <div className='newNoteWrapper'>
-          {(showAddNote) && <NewNote defaultHeader={defaultHeader} defaultBody={defaultBody}/>}
+          {(showAddNote) && <NewNote defaultId={defaultId} defaultHeader={defaultHeader} defaultBody={defaultBody}/>}
           {!showAddNote && selectedNote && (
             <div className='showNote'>
               <div style={{width:'100%'}}>
@@ -52,8 +53,7 @@ const HomeDesign = () => {
                   <h2 style={{color:'#d4d4d4', flex:1, position:'absolute', left:'10%', width:'80%'}}>{selectedNote.header} </h2>
                   <h6 style={{width:'100%', height:'50px', display:'flex', justifyContent:'flex-end'}} className='textColor'>{format(new Date(selectedNote.date), "dd-LLL-yyyy HH:mm").toLocaleString()}</h6>
                   <ToolOutlined className='icon' onClick={()=> {
-                    handleNewNoteButton(selectedNote.header, selectedNote.body, true);
-                    handleDeleteNoteButton();
+                    handleNewNoteButton(selectedNote.id, selectedNote.header, selectedNote.body, true);
                     }}/> 
                 </div>        
                 <p className='textColor'>{selectedNote.body}</p>
@@ -64,7 +64,7 @@ const HomeDesign = () => {
           {!showAddNote && !selectedNote && (<div>Please select a note or add a new one.</div>)}
         </div>
       </div> 
-      {!showAddNote && <FloatButton icon={<PlusOutlined />} onClick={()=>handleNewNoteButton('','',false)} />}
+      {!showAddNote && <FloatButton icon={<PlusOutlined />} onClick={()=>handleNewNoteButton(null,'','',false)} />}
     </div>
   )
 }
