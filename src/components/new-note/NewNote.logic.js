@@ -1,4 +1,4 @@
-import { Form, } from "antd";
+import { Form } from "antd";
 import { v4 as uuidv4 } from 'uuid';
 
 //Add functionality to buttons.
@@ -40,6 +40,7 @@ export const useNewNote = (defaultId, defaultHeader, defaultBody) => {
         }
         // Save to localStorage
         localStorage.setItem(userEmail, JSON.stringify(updatedNotes));
+        form.resetFields();
         }).catch((error) => {console.log(error)});
         
     };

@@ -4,7 +4,7 @@ import { Form, Input, Button } from 'antd'
 
 //Edit an existing note or create a new one.
 const NewNote = (props) => {
-    const{defaultId, defaultHeader, defaultBody} = props;
+    const{buttonName, defaultId, defaultHeader, defaultBody} = props;
     const {form, handleAddNote} = useNewNote();
     return (
         <div className='newNote'>
@@ -13,17 +13,17 @@ const NewNote = (props) => {
                 form={form}
             >
                 <Form.Item name="header" label="Title" rules={[{ required: true, min: 5, message: "Header must be at least 5 characters" }]} initialValue={defaultHeader} >
-                    <Input className='inputBackground'/>
+                    <Input name='newNoteHeader' key='newNoteHeader' className='inputBackground'/>
                 </Form.Item>
 
                 <Form.Item name="body" label="Body" rules={[{ required: true, min: 20, message: "Note must be at least 20 characters"  }]} initialValue={defaultBody}>
-                    <Input.TextArea rows={10} className='inputBackground'/>
+                    <Input.TextArea name='newNoteBody' key='newNoteBody' rows={10} className='inputBackground'/>
                 </Form.Item>
                 <Form.Item  className='formButtonWrapper'>
-                    <Button color="default" variant="solid" onClick={() => {
+                    <Button name="saveButton" key="saveButton" color="default" variant="solid" onClick={() => {
                         handleAddNote(defaultId,'','');
                         }}>
-                        Add
+                        {buttonName}
                     </Button>
                 </Form.Item> 
             </Form>

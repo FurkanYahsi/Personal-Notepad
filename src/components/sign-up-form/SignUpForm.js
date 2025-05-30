@@ -15,6 +15,7 @@ const SignUpForm = () => {
           <Form
             form={form}
             name="basic"
+            key="signupForm"
             labelCol={{ span: '24' }}
             wrapperCol={{ span: '24px' }}
             onFinish = {handleSubmit}>
@@ -26,7 +27,7 @@ const SignUpForm = () => {
                 hasFeedback
                 rules={[{ required: true, message: 'Please enter your name!'}]}
               >
-                <Input type="text"/>
+                <Input type="text" name="signupNameInput" key="signupNameInput"/>
               </Form.Item>
 
                {/* Surname Input */}
@@ -36,7 +37,7 @@ const SignUpForm = () => {
                 hasFeedback
                 rules={[{ required: true, message: 'Please enter your surname!'}]}
               >
-                <Input type="text"/>
+                <Input type="text" name="signupSurnameInput" key="signupSurnameInput"/>
               </Form.Item>
 
               {/* Email Input */}
@@ -55,7 +56,7 @@ const SignUpForm = () => {
                   },
                 ]}
               >
-                <Input />
+                <Input name="signupEmailInput" key="signupEmailInput"/>
               </Form.Item>
 
               {/* Password Input */}
@@ -66,7 +67,7 @@ const SignUpForm = () => {
                 rules={[{ required: true, message: 'Please enter your password!'}]}
               >
                     {/* Kontrol gerekli */}
-                    <Input.Password autoComplete="off" type="text"/>
+                    <Input.Password autoComplete="off" type="text" name="signupPasswordInput" key="signupPasswordInput"/>
               </Form.Item>
 
               {/* Again Password Input */}
@@ -90,19 +91,19 @@ const SignUpForm = () => {
                   }),
                 ]}
               >
-                <Input.Password />
+                <Input.Password name="signupConfirmPasswordInput" key="signupConfirmPasswordInput"/>
               </Form.Item>
 
               {/* Submit Button */}
               <Form.Item label={null}>
-                <Button type="primary" onClick={handleSubmit}>Submit</Button>
+                <Button type="primary" onClick={handleSubmit} name="signupSubmitButton" key="signupSubmitButton">Submit</Button>
               </Form.Item>
 
           </Form>
         </div>
         <h6>
           {/* CSS'e yazsam color çakışmadan dolayı default mavi oluyor. */}
-          <Link to={'/login'} style={{color:"#C1C6CC"}}>Have an account?</Link>
+          <Link name="haveAccount" key="haveAccount" to={'/login'} style={{color:"#C1C6CC"}}>Have an account?</Link>
         </h6>        
       </div>   
     </div>

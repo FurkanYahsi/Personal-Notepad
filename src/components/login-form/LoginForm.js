@@ -15,6 +15,7 @@ const LoginForm = () => {
           <Form
             form={form}
             name="basic"
+            key="loginForm"
             labelCol={{ span: '24' }}
             wrapperCol={{ span: '24px' }}
             onFinish = {handleSubmit}>
@@ -24,17 +25,17 @@ const LoginForm = () => {
               name='Email'
               rules={[{ required: true, message: 'Please enter your email!'}]}
             >
-              <Input type="text"/>
+              <Input type="text" name="loginEmailInput" key="loginEmailInput"/>
             </Form.Item>
             <Form.Item
               label='Password::'
               name='Password'
               rules={[{ required: true, message: 'Please enter your password!'}]}
             >
-              <Input.Password autoComplete="off" type="text"/>
+              <Input.Password autoComplete="off" type="text" name="loginPasswordInput" key="loginPasswordInput"/>
             </Form.Item>
             <Form.Item label={null}>
-              <Button type="primary" onClick={handleSubmit}>Submit</Button>
+              <Button type="primary" onClick={handleSubmit} name="loginSubmitButton" key="loginSubmitButton">Submit</Button>
             </Form.Item>
 
           </Form>

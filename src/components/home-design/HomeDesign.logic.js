@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Route, useNavigate } from 'react-router-dom'
 
 //Add functionality to buttons.
 export const useHomeDesign = () => {
@@ -7,6 +7,7 @@ export const useHomeDesign = () => {
     const [defaultHeader, setDefaultHeader] = useState('');
     const [defaultBody, setDefaultBody] = useState('');
     const [defaultId, setDefaultId] = useState(null);
+    const [isEditNote, setIsEditNote] = useState(false);
     const [notes, setNotes] = useState([]);
     const [selectedNote, setSelectedNote] = useState(null);
     const navigate = useNavigate();
@@ -23,6 +24,7 @@ export const useHomeDesign = () => {
     const handleNewNoteButton = (id, oldHeader, oldBody) => {
       if (id !== null) {
         setDefaultId(id);
+        setIsEditNote(true);
       }
       setShowAddNote(true);
       setDefaultHeader(oldHeader);
@@ -41,11 +43,13 @@ export const useHomeDesign = () => {
       
       const note = notes.find(n => n.id === noteId);
       if (note) {
-        const path = '/home/my-notes/' + noteId;
+        const path = '/home/my-notes/:noteId' + noteId;
+        // <Route path='/home/my-notes:{noteId}'></Route>
         navigate(path);
         setSelectedNote(note);
         setShowAddNote(false);
       }
+      
     };
 
     const handleDeleteNoteButton = () => {
@@ -67,6 +71,7 @@ export const useHomeDesign = () => {
     handleDeleteNoteButton,
     defaultId,
     defaultHeader,
-    defaultBody
+    defaultBody,
+    isEditNote
   }
 }

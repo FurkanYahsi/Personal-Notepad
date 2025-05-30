@@ -23,12 +23,13 @@ export const useSignUpForm = () => {
       localStorage.setItem('currentUser', 'guest');
       navigate("/home");
 
-    } catch (error) {
+    } catch (error) {      
       if (error.errorFields) {
+        console.log(error.errorFields);
         api.open({
           message: "",
           description: error.errorFields.map((item) => (
-            <div key={item.name[0]}>{item.name[0]} can not be empty!</div>
+            <div key={item.name[0]}>{item.errors[0]}</div>
           )),
           placement: "bottomLeft",
           duration: 3,

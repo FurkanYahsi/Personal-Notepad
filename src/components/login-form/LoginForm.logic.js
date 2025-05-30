@@ -10,7 +10,7 @@ export const useLoginForm = () => {
     form.validateFields().then((values)=> {
       fetchUserData(values);
     }).catch((error)=> {      
-      error.errorFields.map((item) => {        
+      error.errorFields.map((item) => {
         api.open ({
           className:'toastMessageBackground',
           message:"",
@@ -18,23 +18,23 @@ export const useLoginForm = () => {
           placement:"bottomLeft",
           duration:3,
         })
-      })      
+      })
     })
   }
   //Search every object in JSON file and the user can go to Home Page if there is one match.
   const fetchUserData = (values) => {
     fetch('fake-db.json').then(response => {
-      if(!response.ok) {         
+      if(!response.ok) {
         throw new Error('The JSON file could not found!')
       }
       return response.json();
     }).then(data=> {
       if (isUserValid(data, values)) {
         navigate('/home');
-      }        
+      }
     })
     .catch((error)=> console.error('Failed to fetch data:', error))
-  }      
+  }
   const isUserValid = (data, values) => {
     let isValid = false;
     data.users.some((user) => {
@@ -42,7 +42,7 @@ export const useLoginForm = () => {
         isValid = true;
         //Which user is loggedin to system
         localStorage.setItem('currentUser', values.Email)
-      }       
+      }
     })
     if (!isValid) {
       api.open ({

@@ -4,6 +4,7 @@ import {BookOutlined, PlusOutlined, LogoutOutlined, ToolOutlined, DeleteOutlined
 import { Button, Menu, FloatButton } from 'antd';
 import NewNote from '../new-note/NewNote';
 import { format } from "date-fns";
+import { useParams } from 'react-router-dom';
 
 const HomeDesign = () => {
   
@@ -18,6 +19,7 @@ const HomeDesign = () => {
     defaultHeader,
     defaultBody,
     defaultId,
+    isEditNote
   } = useHomeDesign();
 
   //Dinamik oluşturmak için içeri aldık
@@ -32,19 +34,21 @@ const HomeDesign = () => {
       })),
     },
   ];
-   
+   const { id } = useParams();
+        
   return (
     <div className='homeDesign' >
       <div className='sidebarWrapper'>
-        <Menu className='sidebarMenu' selectedKeys={selectedNote ? [selectedNote.id] : []} mode='inline' theme='dark' items={items} onClick={handleMenuClick}/> 
+        <Menu name="homeDesignSidebarMenu" key="homeDesignSidebarMenu" className='sidebarMenu' selectedKeys={selectedNote ? [selectedNote.id] : []} mode='inline' theme='dark' items={items} onClick={handleMenuClick}/> 
       </div>
       <div className='upperbarAndContentWrapper'>
         <div className='upperbar'>
-          <Button className='logoutButton' onClick={handleLogoutButton}>
+          <Button key='logOutButton' name='logOutButton' className='logoutButton' onClick={handleLogoutButton}>
             <LogoutOutlined/>Logout</Button>
         </div>
          <div className='newNoteWrapper'>
-          {(showAddNote) && <NewNote defaultId={defaultId} defaultHeader={defaultHeader} defaultBody={defaultBody}/>}
+          {(showAddNote) && !isEditNote && <NewNote name="homeDesignAddNoteButton" key="homeDesignAddNoteButton" buttonName="Add" defaultId={defaultId} defaultHeader={defaultHeader} defaultBody={defaultBody}/>}
+          {(showAddNote) && isEditNote && <NewNote name="homeDesignAddNoteButton" key="homeDesignAddNoteButton" buttonName="Save" defaultId={defaultId} defaultHeader={defaultHeader} defaultBody={defaultBody}/>}
           {!showAddNote && selectedNote && (
             <div className='showNote'>
               <div className='fullWidth'>
@@ -63,7 +67,7 @@ const HomeDesign = () => {
           {!showAddNote && (<div>Please select a note or add a new one.</div>)}
         </div>
       </div> 
-      {!showAddNote && <FloatButton icon={<PlusOutlined />} onClick={()=>handleNewNoteButton(null,'','')} />}
+      {!showAddNote && <FloatButton key='goToNewNoteFormButton' name='goToNewNoteFormButton' icon={<PlusOutlined />} onClick={()=>{handleNewNoteButton(null,'','');console.log(id);}} />}
     </div>
   )
 }
