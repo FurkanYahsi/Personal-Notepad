@@ -1,5 +1,3 @@
-import React from 'react'
-
 const NotFoundScreen = () => {
   return (
     <div>
@@ -7,5 +5,4 @@ const NotFoundScreen = () => {
     </div>
   )
 }
-
 export default NotFoundScreen

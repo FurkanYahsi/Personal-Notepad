@@ -1,5 +1,4 @@
 import './NewNote.css'
-
 import {useNewNote} from './NewNote.logic'
 import { Form, Input, Button } from 'antd'
 
@@ -23,7 +22,6 @@ const NewNote = (props) => {
                 <Form.Item  className='formButtonWrapper'>
                     <Button color="default" variant="solid" onClick={() => {
                         handleAddNote(defaultId,'','');
-                        // window.location.reload(); //Refresh the page to show headers in sidebar
                         }}>
                         Add
                     </Button>

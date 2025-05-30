@@ -1,10 +1,10 @@
 import { Button, Form, Input } from "antd";
-import './LoginForm.css'
 import {Link} from "react-router-dom";
+import './LoginForm.css';
 import { useLoginForm } from "./LoginForm.logic";
 
 const LoginForm = () => {
-  const {contextHolder,form,handleSubmit} = useLoginForm()
+  const {contextHolder,form,handleSubmit} = useLoginForm();
  
   return (   
     <div className='loginForm'>
