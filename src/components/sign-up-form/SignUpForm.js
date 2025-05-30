@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd";
+import { Button, ConfigProvider, Form, Input } from "antd";
 import './SignUpForm.css'
 import {Link} from "react-router-dom";
 import { useSignUpForm } from "./SignUpForm.logic";
@@ -103,7 +103,9 @@ const SignUpForm = () => {
         </div>
         <h6>
           {/* CSS'e yazsam color çakışmadan dolayı default mavi oluyor. */}
-          <Link name="haveAccount" key="haveAccount" to={'/login'} style={{color:"#C1C6CC"}}>Have an account?</Link>
+            
+            <Link name="haveAccount" key="haveAccount" to={'/login'} style={{ color: '#C1C6CC'}}>Have an account?</Link>
+         
         </h6>        
       </div>   
     </div>

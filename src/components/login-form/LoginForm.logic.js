@@ -1,5 +1,6 @@
 import { Form, notification } from "antd";
 import { useNavigate } from "react-router-dom";
+import { ToastMessage } from "../../utils/ToastMessage";
 
 export const useLoginForm = () => {
   const [form] = Form.useForm();
@@ -45,12 +46,13 @@ export const useLoginForm = () => {
       }
     })
     if (!isValid) {
-      api.open ({
-        className:'toastMessageBackground',
-        message:"",
-        description: "Email or password is wrong!",
-        placement:"bottomLeft",
-      })
+      ToastMessage("Email or password is wrong!");
+      // api.open ({
+      //   className:'toastMessageBackground',
+      //   message:"",
+      //   description: "Email or password is wrong!",
+      //   placement:"bottomLeft",
+      // })
     }
     return isValid;
   }
