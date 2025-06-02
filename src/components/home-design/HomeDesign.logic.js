@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Route, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import {BookOutlined} from '@ant-design/icons';
 
 //Add functionality to buttons.
 export const useHomeDesign = () => {
@@ -14,9 +15,22 @@ export const useHomeDesign = () => {
 
     const currentUser = localStorage.getItem('currentUser');
 
+    let items;
+      items = [
+        {
+          key: 'notes',
+          icon: <BookOutlined/>,
+          label: 'My Notes',
+          children: notes.filter(note=>note.userId === currentUser).map(note => ({
+            key: note.id,
+            label: note.header,
+          })),
+        },
+      ];
+
     useEffect(() => {
       if (currentUser) {
-        const savedNotes = JSON.parse(localStorage.getItem(currentUser)) || [];
+        const savedNotes = JSON.parse(localStorage.getItem('notes')) || [];
         setNotes(savedNotes);
       }
     }, [currentUser, showAddNote]);
@@ -37,7 +51,7 @@ export const useHomeDesign = () => {
       localStorage.removeItem(null);
       navigate("/login");
     }
-  
+
     const handleMenuClick = (e) => {
       const noteId = e.key;
       
@@ -56,7 +70,7 @@ export const useHomeDesign = () => {
       if (!selectedNote || !currentUser) return;
 
       const updatedNotes = notes.filter(note => note.id !== selectedNote.id);
-      localStorage.setItem(currentUser, JSON.stringify(updatedNotes));
+      localStorage.setItem('notes', JSON.stringify(updatedNotes));
 
       setNotes(updatedNotes);
       setSelectedNote(null);
@@ -65,13 +79,13 @@ export const useHomeDesign = () => {
     showAddNote,
     handleNewNoteButton,
     handleLogoutButton,
-    notes,
     selectedNote,
     handleMenuClick,
     handleDeleteNoteButton,
     defaultId,
     defaultHeader,
     defaultBody,
-    isEditNote
+    isEditNote,
+    items
   }
 }

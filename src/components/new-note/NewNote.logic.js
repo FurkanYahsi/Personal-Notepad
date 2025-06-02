@@ -11,7 +11,7 @@ export const useNewNote = (defaultId, defaultHeader, defaultBody) => {
         const userId = localStorage.getItem("currentUser");
     
         // Get all notes of currentUser
-        const existingNotesFromFile = localStorage.getItem(userId);
+        const existingNotesFromFile = localStorage.getItem('notes');
         const existingNotes = existingNotesFromFile ? JSON.parse(existingNotesFromFile) : [];
         let newNote;
         let updatedNotes;
@@ -30,7 +30,7 @@ export const useNewNote = (defaultId, defaultHeader, defaultBody) => {
                     
         } else {
             //An existing note
-            existingNotes.map((note)=> {
+            existingNotes.filter(userId).map((note)=> {
                 if (note.id === defaultId) {
                     note.header=defaultHeader + values.header;
                     note.body=defaultBody + values.body;
@@ -40,7 +40,7 @@ export const useNewNote = (defaultId, defaultHeader, defaultBody) => {
             updatedNotes = [...existingNotes];
         }
         // Save to localStorage
-        localStorage.setItem(userId, JSON.stringify(updatedNotes));
+        localStorage.setItem('notes', JSON.stringify(updatedNotes));
         form.resetFields();
         }).catch((error) => {console.log(error)});
         

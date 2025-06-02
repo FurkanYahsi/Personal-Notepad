@@ -1,6 +1,6 @@
 import './HomeDesign.css'
 import {useHomeDesign} from './HomeDesign.logic'
-import {BookOutlined, PlusOutlined, LogoutOutlined, ToolOutlined, DeleteOutlined} from '@ant-design/icons';
+import { PlusOutlined, LogoutOutlined, ToolOutlined, DeleteOutlined} from '@ant-design/icons';
 import { Button, Menu, FloatButton } from 'antd';
 import NewNote from '../new-note/NewNote';
 import { format } from "date-fns";
@@ -12,28 +12,18 @@ const HomeDesign = () => {
     showAddNote,
     handleNewNoteButton,
     handleLogoutButton,
-    notes,
     selectedNote,
     handleMenuClick,
     handleDeleteNoteButton,
     defaultHeader,
     defaultBody,
     defaultId,
-    isEditNote
+    isEditNote,
+    items
   } = useHomeDesign();
 
   //Dinamik oluşturmak için içeri aldık
-  const items = [
-    {
-      key: 'notes',
-      icon: <BookOutlined/>,
-      label: 'My Notes',
-      children: notes.map(note => ({
-        key: note.id,
-        label: note.header,
-      })),
-    },
-  ];
+ 
    const { id } = useParams();
         
   return (
