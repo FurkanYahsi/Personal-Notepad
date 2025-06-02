@@ -39,7 +39,7 @@ const HomeDesign = () => {
   return (
     <div className='homeDesign' >
       <div className='sidebarWrapper'>
-        <Menu name="homeDesignSidebarMenu" key="homeDesignSidebarMenu" className='sidebarMenu' selectedKeys={selectedNote ? [selectedNote.id] : []} mode='inline' theme='dark' items={items} onClick={handleMenuClick}/> 
+        <Menu name="homeDesignSidebarMenu" key="homeDesignSidebarMenu" className='sidebarMenu' selectedKeys={selectedNote ? [selectedNote.id] : []} mode='inline' theme='dark' items={items} onClick={handleMenuClick}/>        
       </div>
       <div className='upperbarAndContentWrapper'>
         <div className='upperbar'>
@@ -57,7 +57,7 @@ const HomeDesign = () => {
                   <h6 className='noteBody'>{format(new Date(selectedNote.date), "dd-LLL-yyyy HH:mm").toLocaleString()}</h6>
                   <ToolOutlined className='icon' onClick={()=> {
                     handleNewNoteButton(selectedNote.id, selectedNote.header, selectedNote.body);
-                    }}/> 
+                  }}/> 
                 </div>        
                 <p className='textColor'>{selectedNote.body}</p>
                 <DeleteOutlined className='icon' onClick={()=>handleDeleteNoteButton()}/>

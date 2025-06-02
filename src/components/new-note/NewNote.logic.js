@@ -8,21 +8,22 @@ export const useNewNote = (defaultId, defaultHeader, defaultBody) => {
     const handleAddNote = (defaultId, defaultHeader, defaultBody) => {
         
         form.validateFields().then(values => {
-        const userEmail = localStorage.getItem("currentUser");
+        const userId = localStorage.getItem("currentUser");
     
         // Get all notes of currentUser
-        const existingNotesFromFile = localStorage.getItem(userEmail);
+        const existingNotesFromFile = localStorage.getItem(userId);
         const existingNotes = existingNotesFromFile ? JSON.parse(existingNotesFromFile) : [];
         let newNote;
         let updatedNotes;
 
         //A new note
         if (defaultId === null) {
-            newNote = {            
+            newNote = {
                 id: uuidv4(),
+                userId: userId,
                 header: values.header,
                 body: values.body,
-                date: new Date().toLocaleString()
+                date: new Date().toISOString()
             }; 
             // Add note to list
             updatedNotes = [...existingNotes, newNote];
@@ -33,13 +34,13 @@ export const useNewNote = (defaultId, defaultHeader, defaultBody) => {
                 if (note.id === defaultId) {
                     note.header=defaultHeader + values.header;
                     note.body=defaultBody + values.body;
-                    note.date= new Date().toLocaleString();
+                    note.date= new Date().toISOString();
                 }
             })
-            updatedNotes = [...existingNotes]; //Sorulacak-------------------------------------------------------------------------------------------
+            updatedNotes = [...existingNotes];
         }
         // Save to localStorage
-        localStorage.setItem(userEmail, JSON.stringify(updatedNotes));
+        localStorage.setItem(userId, JSON.stringify(updatedNotes));
         form.resetFields();
         }).catch((error) => {console.log(error)});
         

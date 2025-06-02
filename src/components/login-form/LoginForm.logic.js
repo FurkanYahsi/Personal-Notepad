@@ -4,7 +4,7 @@ import { ToastMessage } from "../../utils/ToastMessage";
 
 export const useLoginForm = () => {
   const [form] = Form.useForm();
-  const [api,contextHolder] = notification.useNotification();
+  const [api, contextHolder] = notification.useNotification();
   const navigate = useNavigate();
   //If input fields are not blank, call the fetchUserData()
   const handleSubmit = () => {
@@ -42,17 +42,17 @@ export const useLoginForm = () => {
       if ((user.email === values.Email) && (user.password === values.Password)) {
         isValid = true;
         //Which user is loggedin to system
-        localStorage.setItem('currentUser', values.Email)
+        localStorage.setItem('currentUser', user.id)
       }
     })
     if (!isValid) {
-      ToastMessage("Email or password is wrong!");
-      // api.open ({
-      //   className:'toastMessageBackground',
-      //   message:"",
-      //   description: "Email or password is wrong!",
-      //   placement:"bottomLeft",
-      // })
+      // ToastMessage("Email or password is wrong!");
+      api.open ({
+        className:'toastMessageBackground',
+        message:"",
+        description: "Email or password is wrong!",
+        placement:"bottomLeft",
+      })
     }
     return isValid;
   }

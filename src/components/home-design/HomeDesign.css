@@ -48,7 +48,7 @@
 }
 
 .showNote {
-    position: absolute;   
+    position: fixed;   
     width: 50vw;
     display: flex;
     text-align: center;
@@ -65,9 +65,12 @@
 
 .noteHeader {
     color: #d4d4d4;
-    position: absolute;
+    position: fixed;
+    display: flex;
+    text-align: center;
+    justify-content: center;
     left: 10%;
-    width: 80%;
+    width: 90vw;
 }
 
 .noteBody {
