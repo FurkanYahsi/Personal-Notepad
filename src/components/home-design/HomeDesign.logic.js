@@ -15,6 +15,29 @@ export const useHomeDesign = () => {
 
     const currentUser = localStorage.getItem('currentUser');
 
+    // const [isSidebarUpdated, setIsSidebarUpdated] = useState(false);
+
+    // if (notes === localStorage.getItem('notes')) {
+    //   setIsSidebarUpdated(true);
+    // } else {
+    //   setIsSidebarUpdated(false);
+    // }
+    // const [items, setItems] = useState();
+
+    // useEffect(()=> {
+    //   setItems( [
+    //     {
+    //       key: 'notes',
+    //       icon: <BookOutlined/>,
+    //       label: 'My Notes',
+    //       children: notes.filter(note=>note.userId === currentUser).map(note => ({
+    //         key: note.id,
+    //         label: note.header,
+    //       })),
+    //     },
+    //   ]);
+    // }, [isSidebarUpdated]);
+
     let items;
       items = [
         {
@@ -27,6 +50,8 @@ export const useHomeDesign = () => {
           })),
         },
       ];
+
+
 
     useEffect(() => {
       if (currentUser) {
@@ -63,7 +88,7 @@ export const useHomeDesign = () => {
         setSelectedNote(note);
         setShowAddNote(false);
       }
-      
+
     };
 
     const handleDeleteNoteButton = () => {
@@ -74,7 +99,7 @@ export const useHomeDesign = () => {
 
       setNotes(updatedNotes);
       setSelectedNote(null);
-    }   
+    }
   return {
     showAddNote,
     handleNewNoteButton,

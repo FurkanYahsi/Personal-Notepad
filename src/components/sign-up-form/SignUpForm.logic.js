@@ -1,11 +1,10 @@
-import { Form, notification } from "antd";
+import { Form } from "antd";
 import { useNavigate } from "react-router-dom";
-
- // TODO: Toast messages will be reviewed 
+import { ToastMessage } from "../../utils/ToastMessage";
 
 export const useSignUpForm = () => {
     const [form] = Form.useForm();
-    const [api,contextHolder] = notification.useNotification();
+    const {contextHolder, showNotification} = ToastMessage();
     const navigate = useNavigate();
 
    const handleSubmit = async () => {
@@ -25,16 +24,9 @@ export const useSignUpForm = () => {
 
     } catch (error) {      
       if (error.errorFields) {
-        console.log(error.errorFields);
-        api.open({
-          message: "",
-          description: error.errorFields.map((item) => (
+        showNotification(error.errorFields.map((item) => (
             <div key={item.name[0]}>{item.errors[0]}</div>
-          )),
-          placement: "bottomLeft",
-          duration: 3,
-          className:'toastMessageBackground',
-        });
+          )))
       }
     }
   };
@@ -43,13 +35,7 @@ export const useSignUpForm = () => {
      const arePasswordsSame=(values) =>{
 
       if (values.Password !== values.PasswordConfirmation) {
-        api.open ({
-          message:"",
-          description: "The passwords are not same!",
-          placement:"bottomLeft",
-          duration:3,
-          className:'toastMessageBackground',
-        })
+        showNotification("The passwords are not same!");
         return false;
       }
       return true;
@@ -60,7 +46,6 @@ export const useSignUpForm = () => {
        if(!response.ok) {
           throw new Error('JSON file could not found!');
         }
-
       const data = await response.json();
       const isEmailValidValue = await isEmailValid(values, data);
 
@@ -74,13 +59,7 @@ export const useSignUpForm = () => {
     const isEmailValid = async (values, data) => {
       const isEmailExist = await data.users.some(user => user.email === values.Email);
       if (isEmailExist) {
-        api.open ({
-        message:"",
-        description: "This email is already used!",
-        placement:"bottomLeft",
-        duration:3,
-        className:'toastMessageBackground',
-        }) 
+        showNotification("This email is already used!");        
         return false;
       }
     return !isEmailExist;

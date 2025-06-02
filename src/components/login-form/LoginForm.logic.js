@@ -1,10 +1,10 @@
-import { Form, notification } from "antd";
+import { Form } from "antd";
 import { useNavigate } from "react-router-dom";
 import { ToastMessage } from "../../utils/ToastMessage";
 
 export const useLoginForm = () => {
   const [form] = Form.useForm();
-  const [api, contextHolder] = notification.useNotification();
+  const {contextHolder, showNotification} = ToastMessage();
   const navigate = useNavigate();
   //If input fields are not blank, call the fetchUserData()
   const handleSubmit = () => {
@@ -12,13 +12,7 @@ export const useLoginForm = () => {
       fetchUserData(values);
     }).catch((error)=> {      
       error.errorFields.map((item) => {
-        api.open ({
-          className:'toastMessageBackground',
-          message:"",
-          description:  item.name[0] + " cannot be blank!",
-          placement:"bottomLeft",
-          duration:3,
-        })
+        showNotification(item.name[0] + " cannot be blank!")
       })
     })
   }
@@ -46,13 +40,8 @@ export const useLoginForm = () => {
       }
     })
     if (!isValid) {
-      // ToastMessage("Email or password is wrong!");
-      api.open ({
-        className:'toastMessageBackground',
-        message:"",
-        description: "Email or password is wrong!",
-        placement:"bottomLeft",
-      })
+      showNotification("Email or password is wrong!");
+      
     }
     return isValid;
   }

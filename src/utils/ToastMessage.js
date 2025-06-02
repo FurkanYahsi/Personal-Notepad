@@ -1,16 +1,18 @@
 import { notification } from "antd";
 
-export const ToastMessage = (description) => {
+export const ToastMessage = () => {
 
     const [api, contextHolder] = notification.useNotification();
-    
-    api.open({
-        className:'toastMessageBackground',
-        message:"",
-        description: description,
-        placement:"bottomLeft",
-        duration:3,
+
+    const showNotification = (description) => {
+        api.open({
+            className:'toastMessageBackground',
+            message:"",
+            description: description,
+            placement:"bottomLeft",
+            duration:3,
         })
-    return {contextHolder};
+    }
+    return {contextHolder, showNotification};
 }
 
