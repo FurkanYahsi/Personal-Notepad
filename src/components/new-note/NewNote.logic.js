@@ -1,9 +1,12 @@
 import { Form } from "antd";
 import { v4 as uuidv4 } from 'uuid';
+import { useContext } from 'react';
+import { NoteContext } from '../../contexts/NoteContext';
 
 //Add functionality to buttons.
-export const useNewNote = (defaultId, defaultHeader, defaultBody) => {
+export const useNewNote = () => {
     const [form] = Form.useForm();
+    const{dispatch} = useContext(NoteContext);
 
     const handleAddNote = (defaultId, defaultHeader, defaultBody) => {
         
@@ -11,8 +14,16 @@ export const useNewNote = (defaultId, defaultHeader, defaultBody) => {
         const userId = localStorage.getItem("currentUser");
     
         // Get all notes of currentUser
+        let existingNotes = [];
+
+        try {
         const existingNotesFromFile = localStorage.getItem('notes');
-        const existingNotes = existingNotesFromFile ? JSON.parse(existingNotesFromFile) : [];
+        existingNotes = existingNotesFromFile ? JSON.parse(existingNotesFromFile) : [];
+        } catch (e) {
+            console.log(e);
+            localStorage.removeItem('notes');
+            existingNotes = [];
+        }
         let newNote;
         let updatedNotes;
 
@@ -27,10 +38,11 @@ export const useNewNote = (defaultId, defaultHeader, defaultBody) => {
             }; 
             // Add note to list
             updatedNotes = [...existingNotes, newNote];
+            dispatch({ type: "ADD_NOTE", payload: newNote });
                     
         } else {
             //An existing note
-            existingNotes.filter(userId).map((note)=> {
+            existingNotes.filter(note => note.userId === userId).map((note)=> {
                 if (note.id === defaultId) {
                     note.header=defaultHeader + values.header;
                     note.body=defaultBody + values.body;
@@ -38,9 +50,11 @@ export const useNewNote = (defaultId, defaultHeader, defaultBody) => {
                 }
             })
             updatedNotes = [...existingNotes];
+            dispatch({ type: "EDIT_NOTE", payload: updatedNotes });
         }
-        // Save to localStorage
+        // // Save to localStorage
         localStorage.setItem('notes', JSON.stringify(updatedNotes));
+        // localStorage.setItem('newNoteAdded', true);
         form.resetFields();
         }).catch((error) => {console.log(error)});
         
@@ -48,9 +62,9 @@ export const useNewNote = (defaultId, defaultHeader, defaultBody) => {
     return {
         form,
         handleAddNote,
-        defaultId,
-        defaultHeader, 
-        defaultBody
+        // defaultId,
+        // defaultHeader, 
+        // defaultBody
     }
 }
 

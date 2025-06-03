@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {BookOutlined} from '@ant-design/icons';
+import { useContext } from 'react';
+import { NoteContext } from '../../contexts/NoteContext';
+
 
 //Add functionality to buttons.
 export const useHomeDesign = () => {
@@ -14,49 +17,47 @@ export const useHomeDesign = () => {
     const navigate = useNavigate();
 
     const currentUser = localStorage.getItem('currentUser');
+    const { state, dispatch } = useContext(NoteContext);
+    const [items, setItems] = useState();
+    useEffect(()=> {
+          setNotes(state.notes.filter(note => note.userId === currentUser))
 
-    // const [isSidebarUpdated, setIsSidebarUpdated] = useState(false);
+    }, [])
 
-    // if (notes === localStorage.getItem('notes')) {
-    //   setIsSidebarUpdated(true);
-    // } else {
-    //   setIsSidebarUpdated(false);
-    // }
-    // const [items, setItems] = useState();
+ 
+    useEffect(() => {
+      if (state.notes && currentUser) {
+        setNotes(state.notes.filter(note => note.userId === currentUser));
+      }
+    }, [state.notes, currentUser]);
 
-    // useEffect(()=> {
-    //   setItems( [
-    //     {
-    //       key: 'notes',
-    //       icon: <BookOutlined/>,
-    //       label: 'My Notes',
-    //       children: notes.filter(note=>note.userId === currentUser).map(note => ({
-    //         key: note.id,
-    //         label: note.header,
-    //       })),
-    //     },
-    //   ]);
-    // }, [isSidebarUpdated]);
-
-    let items;
-      items = [
+    useEffect(() => {
+      console.log('girdi')
+      console.log(localStorage.getItem('notes'))
+      if (!notes) return;
+      setItems([
         {
           key: 'notes',
-          icon: <BookOutlined/>,
+          icon: <BookOutlined />,
           label: 'My Notes',
-          children: notes.filter(note=>note.userId === currentUser).map(note => ({
+          children: notes.map(note => ({
             key: note.id,
             label: note.header,
           })),
         },
-      ];
-
+      ]);
+    }, [notes, currentUser]); 
 
 
     useEffect(() => {
       if (currentUser) {
-        const savedNotes = JSON.parse(localStorage.getItem('notes')) || [];
-        setNotes(savedNotes);
+        try {
+          const savedNotes = JSON.parse(localStorage.getItem('notes')).filter(note => note.userId === currentUser) || [];
+            setNotes(savedNotes);
+        } catch (e) {
+
+        }
+        
       }
     }, [currentUser, showAddNote]);
 
@@ -68,6 +69,8 @@ export const useHomeDesign = () => {
       setShowAddNote(true);
       setDefaultHeader(oldHeader);
       setDefaultBody(oldBody);
+      setSelectedNote(null);
+      navigate('/home/my-notes/new-note')
     }
 
     const handleLogoutButton = () => {
@@ -82,24 +85,36 @@ export const useHomeDesign = () => {
       
       const note = notes.find(n => n.id === noteId);
       if (note) {
-        const path = '/home/my-notes/:noteId' + noteId;
+        const path = '/home/my-notes/:noteId' + noteId; //----------------------------------------------------------------------
         // <Route path='/home/my-notes:{noteId}'></Route>
         navigate(path);
         setSelectedNote(note);
         setShowAddNote(false);
       }
-
     };
 
     const handleDeleteNoteButton = () => {
       if (!selectedNote || !currentUser) return;
 
-      const updatedNotes = notes.filter(note => note.id !== selectedNote.id);
-      localStorage.setItem('notes', JSON.stringify(updatedNotes));
+      let allNotes = [];
+      try {
+        allNotes = JSON.parse(localStorage.getItem('notes')) || [];
+      } catch (e) {
+        console.error(e);
+        return;
+      }
 
-      setNotes(updatedNotes);
+      const updatedAllNotes = allNotes.filter(note => note.id !== selectedNote.id);
+
+      localStorage.setItem('notes', JSON.stringify(updatedAllNotes));
+
+      const updatedUserNotes = updatedAllNotes.filter(note => note.userId === currentUser);
+            dispatch({ type: "DELETE_NOTE", payload: updatedAllNotes });
+
+      setNotes(updatedUserNotes);
       setSelectedNote(null);
-    }
+    };
+
   return {
     showAddNote,
     handleNewNoteButton,
