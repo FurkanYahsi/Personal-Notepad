@@ -41,8 +41,7 @@ const LoginForm = () => {
           </Form>
         </div>
         <h6>
-          {/* CSS'e yazsam color çakışmadan dolayı default mavi oluyor. */}
-          <Link to={'/sign-up'} style={{color:"#C1C6CC"}}>Don't have an account?</Link>
+          <Link to={'/sign-up'} className="linkText">Don't have an account?</Link>
         </h6>        
       </div>   
     </div>

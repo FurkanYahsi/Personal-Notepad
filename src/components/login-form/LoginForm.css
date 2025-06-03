@@ -9,9 +9,9 @@
 .welcomeBackText {
     color : white;
 }
-/* Kullanamadım linkin color'u ile çakıştı */
+
 .linkText {
-    color:"#C1C6CC";
+    color: #C1C6CC;
 }
 
 .toastMessageBackground {

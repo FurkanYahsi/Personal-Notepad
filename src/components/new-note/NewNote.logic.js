@@ -42,7 +42,7 @@ export const useNewNote = () => {
                     
         } else {
             //An existing note
-            existingNotes.filter(note => note.userId === userId).map((note)=> {
+            existingNotes.filter(note => note.userId === userId).foreach((note)=> {
                 if (note.id === defaultId) {
                     note.header=defaultHeader + values.header;
                     note.body=defaultBody + values.body;

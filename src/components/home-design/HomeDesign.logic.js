@@ -19,10 +19,10 @@ export const useHomeDesign = () => {
     const currentUser = localStorage.getItem('currentUser');
     const { state, dispatch } = useContext(NoteContext);
     const [items, setItems] = useState();
-    useEffect(()=> {
-          setNotes(state.notes.filter(note => note.userId === currentUser))
+    // useEffect(()=> {
+    //       setNotes(state.notes.filter(note => note.userId === currentUser))
 
-    }, [])
+    // }, [])
 
  
     useEffect(() => {
@@ -32,8 +32,6 @@ export const useHomeDesign = () => {
     }, [state.notes, currentUser]);
 
     useEffect(() => {
-      console.log('girdi')
-      console.log(localStorage.getItem('notes'))
       if (!notes) return;
       setItems([
         {
