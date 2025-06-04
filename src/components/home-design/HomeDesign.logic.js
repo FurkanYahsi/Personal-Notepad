@@ -60,29 +60,18 @@ export const useHomeDesign = () => {
       localStorage.removeItem('currentUser');
       localStorage.removeItem('guest');
       localStorage.removeItem(null);
-      //Guest başka biri girerse önceki guestin notlarını görüntüleyebiliyor
-      // let count = 0;
-      // let temp = JSON.parse(localStorage.getItem('notes'));
-      // for (var i = temp.length - 1; i >= 0; i = i-1) {
-      //   if (temp[i].userId === 'guest') {
-      //     temp[i] = null;
-      //     count = count + 1;
-      //   }
-      // }
-      // let newTemp = [];
-      // let a = 0;
-      // for (var i = temp.length - 1; i >= 0; i = i-1) {
-      //   try {
-      //     if (temp[i].userId) {
 
-      //     }
-      //     if (a <= i)
-      //       newTemp[a] = temp[i];    
-      //   } catch (e) {
-
-      //   }
-      // }
-      // localStorage.setItem('notes', JSON.stringify(newTemp));
+      //If the currentUser is a guest, then delete his notes when logout
+      let arr = [];
+      let temp = JSON.parse(localStorage.getItem('notes'));
+      for (var i = temp.length - 1; i >= 0; i = i-1) {
+        if (temp[i].userId !== 'guest') {
+          arr = [...arr, temp[i]]
+        }
+      }
+    
+      localStorage.setItem('notes', JSON.stringify(arr));
+      dispatch({ type: "SET_NOTE", payload: arr });
       navigate("/login");
     }
 
@@ -116,7 +105,7 @@ export const useHomeDesign = () => {
       localStorage.setItem('notes', JSON.stringify(updatedAllNotes));
 
       const updatedUserNotes = updatedAllNotes.filter(note => note.userId === currentUser);
-      dispatch({ type: "DELETE_NOTE", payload: updatedAllNotes });
+      dispatch({ type: "SET_NOTE", payload: updatedAllNotes });
 
       setNotes(updatedUserNotes);
       setSelectedNote(null);

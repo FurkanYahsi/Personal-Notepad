@@ -13,17 +13,12 @@ const reducer = (state, action) => {
         ...state,
         notes: [...state.notes, action.payload]
       };
-    case "EDIT_NOTE":
+    case "SET_NOTE":
       return {
         ...state,
         notes: action.payload
         
       };
-      case "DELETE_NOTE":
-        return {
-            ...state,
-            notes : action.payload
-        }
     default:
       return state;
   }
