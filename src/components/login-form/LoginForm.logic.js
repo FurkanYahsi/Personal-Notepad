@@ -43,7 +43,6 @@ export const useLoginForm = () => {
     })
     if (!isValid) {
       showNotification("Email or password is wrong!");
-      
     }
     return isValid;
   }

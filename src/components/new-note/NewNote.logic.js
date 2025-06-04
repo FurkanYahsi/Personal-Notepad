@@ -42,7 +42,7 @@ export const useNewNote = () => {
                     
         } else {
             //An existing note
-            existingNotes.filter(note => note.userId === userId).foreach((note)=> {
+            existingNotes.filter(note => note.userId === userId).map((note)=> {
                 if (note.id === defaultId) {
                     note.header=defaultHeader + values.header;
                     note.body=defaultBody + values.body;
@@ -54,7 +54,6 @@ export const useNewNote = () => {
         }
         // // Save to localStorage
         localStorage.setItem('notes', JSON.stringify(updatedNotes));
-        // localStorage.setItem('newNoteAdded', true);
         form.resetFields();
         }).catch((error) => {console.log(error)});
         
@@ -62,9 +61,6 @@ export const useNewNote = () => {
     return {
         form,
         handleAddNote,
-        // defaultId,
-        // defaultHeader, 
-        // defaultBody
     }
 }
 

@@ -21,10 +21,8 @@ const HomeDesign = () => {
     isEditNote,
     items
   } = useHomeDesign();
-
-  //Dinamik oluşturmak için içeri aldık
  
-   const { id } = useParams();
+  const { id } = useParams();
         
   return (
     <div className='homeDesign' >
@@ -62,4 +60,3 @@ const HomeDesign = () => {
   )
 }
 export default HomeDesign;
-

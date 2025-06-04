@@ -4,7 +4,6 @@ import {BookOutlined} from '@ant-design/icons';
 import { useContext } from 'react';
 import { NoteContext } from '../../contexts/NoteContext';
 
-
 //Add functionality to buttons.
 export const useHomeDesign = () => {
     const [showAddNote, setShowAddNote] = useState(false);
@@ -19,18 +18,15 @@ export const useHomeDesign = () => {
     const currentUser = localStorage.getItem('currentUser');
     const { state, dispatch } = useContext(NoteContext);
     const [items, setItems] = useState();
-    // useEffect(()=> {
-    //       setNotes(state.notes.filter(note => note.userId === currentUser))
-
-    // }, [])
-
  
+    //Extract the notes that is belong to currentUser
     useEffect(() => {
       if (state.notes && currentUser) {
         setNotes(state.notes.filter(note => note.userId === currentUser));
       }
     }, [state.notes, currentUser]);
 
+    //Set items to show on sidebar menu
     useEffect(() => {
       if (!notes) return;
       setItems([
@@ -46,19 +42,7 @@ export const useHomeDesign = () => {
       ]);
     }, [notes, currentUser]); 
 
-
-    useEffect(() => {
-      if (currentUser) {
-        try {
-          const savedNotes = JSON.parse(localStorage.getItem('notes')).filter(note => note.userId === currentUser) || [];
-            setNotes(savedNotes);
-        } catch (e) {
-
-        }
-        
-      }
-    }, [currentUser, showAddNote]);
-
+    //Floating add button logic
     const handleNewNoteButton = (id, oldHeader, oldBody) => {
       if (id !== null) {
         setDefaultId(id);
@@ -71,26 +55,51 @@ export const useHomeDesign = () => {
       navigate('/home/my-notes/new-note')
     }
 
+    //Logout button logic
     const handleLogoutButton = () => {
       localStorage.removeItem('currentUser');
       localStorage.removeItem('guest');
       localStorage.removeItem(null);
+      //Guest başka biri girerse önceki guestin notlarını görüntüleyebiliyor
+      // let count = 0;
+      // let temp = JSON.parse(localStorage.getItem('notes'));
+      // for (var i = temp.length - 1; i >= 0; i = i-1) {
+      //   if (temp[i].userId === 'guest') {
+      //     temp[i] = null;
+      //     count = count + 1;
+      //   }
+      // }
+      // let newTemp = [];
+      // let a = 0;
+      // for (var i = temp.length - 1; i >= 0; i = i-1) {
+      //   try {
+      //     if (temp[i].userId) {
+
+      //     }
+      //     if (a <= i)
+      //       newTemp[a] = temp[i];    
+      //   } catch (e) {
+
+      //   }
+      // }
+      // localStorage.setItem('notes', JSON.stringify(newTemp));
       navigate("/login");
     }
 
+    //Sidebar click logic
     const handleMenuClick = (e) => {
       const noteId = e.key;
       
       const note = notes.find(n => n.id === noteId);
       if (note) {
-        const path = '/home/my-notes/:noteId' + noteId; //----------------------------------------------------------------------
-        // <Route path='/home/my-notes:{noteId}'></Route>
+        const path = '/home/my-notes/' + noteId;
         navigate(path);
         setSelectedNote(note);
         setShowAddNote(false);
       }
     };
 
+    //Delete button logic
     const handleDeleteNoteButton = () => {
       if (!selectedNote || !currentUser) return;
 
@@ -107,7 +116,7 @@ export const useHomeDesign = () => {
       localStorage.setItem('notes', JSON.stringify(updatedAllNotes));
 
       const updatedUserNotes = updatedAllNotes.filter(note => note.userId === currentUser);
-            dispatch({ type: "DELETE_NOTE", payload: updatedAllNotes });
+      dispatch({ type: "DELETE_NOTE", payload: updatedAllNotes });
 
       setNotes(updatedUserNotes);
       setSelectedNote(null);

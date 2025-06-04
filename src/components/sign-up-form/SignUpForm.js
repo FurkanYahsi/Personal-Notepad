@@ -66,8 +66,7 @@ const SignUpForm = () => {
                 hasFeedback
                 rules={[{ required: true, message: 'Please enter your password!'}]}
               >
-                    {/* Kontrol gerekli */}
-                    <Input.Password autoComplete="off" type="text" name="signupPasswordInput" key="signupPasswordInput"/>
+                <Input.Password autoComplete="off" type="text" name="signupPasswordInput" key="signupPasswordInput"/>
               </Form.Item>
 
               {/* Again Password Input */}
@@ -108,5 +107,4 @@ const SignUpForm = () => {
     </div>
   )
 }
-
 export default SignUpForm
