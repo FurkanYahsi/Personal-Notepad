@@ -32,8 +32,6 @@ export const useHomeDesign = () => {
     }, [state.notes, currentUser]);
 
     useEffect(() => {
-      console.log('girdi')
-      console.log(localStorage.getItem('notes'))
       if (!notes) return;
       setItems([
         {
@@ -48,16 +46,13 @@ export const useHomeDesign = () => {
       ]);
     }, [notes, currentUser]); 
 
-
     useEffect(() => {
       if (currentUser) {
         try {
           const savedNotes = JSON.parse(localStorage.getItem('notes')).filter(note => note.userId === currentUser) || [];
             setNotes(savedNotes);
         } catch (e) {
-
         }
-        
       }
     }, [currentUser, showAddNote]);
 
@@ -74,19 +69,31 @@ export const useHomeDesign = () => {
     }
 
     const handleLogoutButton = () => {
+      let allNotes = [];
+      try {
+        allNotes = JSON.parse(localStorage.getItem('notes'));
+      } catch (e) {
+        console.error("Notes couldn't parse from localStorage", e);
+      }
+
+      if (currentUser === 'guest') {
+        const notesWithoutGuest = allNotes.filter(note => note.userId !== 'guest');
+        localStorage.setItem('notes', JSON.stringify(notesWithoutGuest));
+
+        dispatch({ type: 'EDIT_NOTE', payload: notesWithoutGuest });
+      }
+
       localStorage.removeItem('currentUser');
       localStorage.removeItem('guest');
-      localStorage.removeItem(null);
       navigate("/login");
-    }
+    };
 
     const handleMenuClick = (e) => {
       const noteId = e.key;
       
       const note = notes.find(n => n.id === noteId);
       if (note) {
-        const path = '/home/my-notes/:noteId' + noteId; //----------------------------------------------------------------------
-        // <Route path='/home/my-notes:{noteId}'></Route>
+        const path = `/home/my-notes/${noteId}`;
         navigate(path);
         setSelectedNote(note);
         setShowAddNote(false);
@@ -109,7 +116,7 @@ export const useHomeDesign = () => {
       localStorage.setItem('notes', JSON.stringify(updatedAllNotes));
 
       const updatedUserNotes = updatedAllNotes.filter(note => note.userId === currentUser);
-            dispatch({ type: "DELETE_NOTE", payload: updatedAllNotes });
+            dispatch({ type: "EDIT_NOTE", payload: updatedAllNotes });
 
       setNotes(updatedUserNotes);
       setSelectedNote(null);

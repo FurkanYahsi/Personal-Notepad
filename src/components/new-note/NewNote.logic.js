@@ -54,17 +54,13 @@ export const useNewNote = () => {
         }
         // // Save to localStorage
         localStorage.setItem('notes', JSON.stringify(updatedNotes));
-        // localStorage.setItem('newNoteAdded', true);
         form.resetFields();
         }).catch((error) => {console.log(error)});
         
     };
     return {
         form,
-        handleAddNote,
-        // defaultId,
-        // defaultHeader, 
-        // defaultBody
+        handleAddNote
     }
 }
 

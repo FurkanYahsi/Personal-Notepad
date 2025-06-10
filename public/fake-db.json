@@ -1,7 +1,7 @@
 {
     "users" : [
-                {"id" : "unique-1", "name" : "Furkan", "email" : "Golden@gmail.com", "password" : "1321"},
-                {"id" : "unique-2", "name" : "Irem", "email" : "Diamond@gmail.com", "password" : "9876"},
-                {"id" : "unique-3", "name" : "A", "email" : "a@mail.com", "password" : "1111"}
+                {"id" : "unique-1", "name" : "Furkan YAHŞİ", "email" : "furkan@gmail.com", "password" : "1111"},
+                {"id" : "unique-2", "name" : "John Wick", "email" : "j.wick@gmail.com", "password" : "1234"},
+                {"id" : "unique-3", "name" : "A", "email" : "a@mail.com", "password" : "2222"}
             ]  
 }

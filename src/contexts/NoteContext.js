@@ -19,11 +19,6 @@ const reducer = (state, action) => {
         notes: action.payload
         
       };
-      case "DELETE_NOTE":
-        return {
-            ...state,
-            notes : action.payload
-        }
     default:
       return state;
   }

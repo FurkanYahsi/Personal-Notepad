@@ -4,7 +4,6 @@ import { PlusOutlined, LogoutOutlined, ToolOutlined, DeleteOutlined} from '@ant-
 import { Button, Menu, FloatButton } from 'antd';
 import NewNote from '../new-note/NewNote';
 import { format } from "date-fns";
-import { useParams } from 'react-router-dom';
 
 const HomeDesign = () => {
   
@@ -22,10 +21,6 @@ const HomeDesign = () => {
     items
   } = useHomeDesign();
 
-  //Dinamik oluşturmak için içeri aldık
- 
-   const { id } = useParams();
-        
   return (
     <div className='homeDesign' >
       <div className='sidebarWrapper'>
@@ -57,7 +52,7 @@ const HomeDesign = () => {
           {!showAddNote && (<div>Please select a note or add a new one.</div>)}
         </div>
       </div> 
-      {!showAddNote && <FloatButton key='goToNewNoteFormButton' name='goToNewNoteFormButton' icon={<PlusOutlined />} onClick={()=>{handleNewNoteButton(null,'','');console.log(id);}} />}
+      {!showAddNote && <FloatButton key='goToNewNoteFormButton' name='goToNewNoteFormButton' icon={<PlusOutlined />} onClick={()=>{handleNewNoteButton(null,'','')}} />}
     </div>
   )
 }

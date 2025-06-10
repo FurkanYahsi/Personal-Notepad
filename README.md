@@ -1,3 +1,10 @@
+# Personal Notepad
+
+You can add, delete and edit your own notes.
+User can login, sign-up as 'guest' user, logout.
+There will be a lot of toast messages when you entered wrong inputs on login and sign-up pages
+All notes have unique IDs.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
