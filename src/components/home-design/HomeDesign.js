@@ -20,7 +20,6 @@ const HomeDesign = () => {
     isEditNote,
     items
   } = useHomeDesign();
-
   return (
     <div className='homeDesign' >
       <div className='sidebarWrapper'>
@@ -57,4 +56,3 @@ const HomeDesign = () => {
   )
 }
 export default HomeDesign;
-

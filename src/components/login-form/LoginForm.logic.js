@@ -11,7 +11,7 @@ export const useLoginForm = () => {
     form.validateFields().then((values)=> {
       fetchUserData(values);
     }).catch((error)=> {      
-      error.errorFields.map((item) => {
+      error.errorFields.foreach((item) => {
         showNotification(item.name[0] + " cannot be blank!")
       })
     })
@@ -36,12 +36,13 @@ export const useLoginForm = () => {
       if ((user.email === values.Email) && (user.password === values.Password)) {
         isValid = true;
         //Which user is loggedin to system
-        localStorage.setItem('currentUser', user.id)
+        localStorage.setItem('currentUser', user.id);
+        return true;
       }
+      return false;
     })
     if (!isValid) {
       showNotification("Email or password is wrong!");
-      
     }
     return isValid;
   }

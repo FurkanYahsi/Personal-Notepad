@@ -1,4 +1,4 @@
-import { Button, ConfigProvider, Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 import './SignUpForm.css'
 import {Link} from "react-router-dom";
 import { useSignUpForm } from "./SignUpForm.logic";
@@ -66,8 +66,7 @@ const SignUpForm = () => {
                 hasFeedback
                 rules={[{ required: true, message: 'Please enter your password!'}]}
               >
-                    {/* Kontrol gerekli */}
-                    <Input.Password autoComplete="off" type="text" name="signupPasswordInput" key="signupPasswordInput"/>
+                <Input.Password autoComplete="off" type="text" name="signupPasswordInput" key="signupPasswordInput"/>
               </Form.Item>
 
               {/* Again Password Input */}
@@ -101,15 +100,11 @@ const SignUpForm = () => {
 
           </Form>
         </div>
-        <h6>
-          {/* CSS'e yazsam color çakışmadan dolayı default mavi oluyor. */}
-            
-            <Link name="haveAccount" key="haveAccount" to={'/login'} className="linkText">Have an account?</Link>
-         
+        <h6>         
+          <Link name="haveAccount" key="haveAccount" to={'/login'} className="linkText">Have an account?</Link>
         </h6>        
       </div>   
     </div>
   )
 }
-
 export default SignUpForm

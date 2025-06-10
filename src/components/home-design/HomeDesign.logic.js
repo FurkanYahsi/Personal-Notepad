@@ -4,7 +4,6 @@ import {BookOutlined} from '@ant-design/icons';
 import { useContext } from 'react';
 import { NoteContext } from '../../contexts/NoteContext';
 
-
 //Add functionality to buttons.
 export const useHomeDesign = () => {
     const [showAddNote, setShowAddNote] = useState(false);
@@ -19,18 +18,15 @@ export const useHomeDesign = () => {
     const currentUser = localStorage.getItem('currentUser');
     const { state, dispatch } = useContext(NoteContext);
     const [items, setItems] = useState();
-    useEffect(()=> {
-          setNotes(state.notes.filter(note => note.userId === currentUser))
-
-    }, [])
-
  
+    //Extract the notes that is belong to currentUser
     useEffect(() => {
       if (state.notes && currentUser) {
         setNotes(state.notes.filter(note => note.userId === currentUser));
       }
     }, [state.notes, currentUser]);
 
+    //Set items to show on sidebar menu
     useEffect(() => {
       if (!notes) return;
       setItems([
@@ -46,16 +42,7 @@ export const useHomeDesign = () => {
       ]);
     }, [notes, currentUser]); 
 
-    useEffect(() => {
-      if (currentUser) {
-        try {
-          const savedNotes = JSON.parse(localStorage.getItem('notes')).filter(note => note.userId === currentUser) || [];
-            setNotes(savedNotes);
-        } catch (e) {
-        }
-      }
-    }, [currentUser, showAddNote]);
-
+    //Floating add button logic
     const handleNewNoteButton = (id, oldHeader, oldBody) => {
       if (id !== null) {
         setDefaultId(id);
@@ -68,26 +55,27 @@ export const useHomeDesign = () => {
       navigate('/home/my-notes/new-note')
     }
 
+    //Logout button logic
     const handleLogoutButton = () => {
-      let allNotes = [];
-      try {
-        allNotes = JSON.parse(localStorage.getItem('notes'));
-      } catch (e) {
-        console.error("Notes couldn't parse from localStorage", e);
-      }
-
-      if (currentUser === 'guest') {
-        const notesWithoutGuest = allNotes.filter(note => note.userId !== 'guest');
-        localStorage.setItem('notes', JSON.stringify(notesWithoutGuest));
-
-        dispatch({ type: 'EDIT_NOTE', payload: notesWithoutGuest });
-      }
 
       localStorage.removeItem('currentUser');
       localStorage.removeItem('guest');
+
+      //If the currentUser is a guest, then delete his notes when logout
+      let arr = [];
+      let temp = JSON.parse(localStorage.getItem('notes'));
+      for (var i = 0; i <= temp.length - 1; i++) {
+        if (temp[i].userId !== 'guest') {
+          arr = [...arr, temp[i]]
+        }
+      }
+    
+      localStorage.setItem('notes', JSON.stringify(arr));
+      dispatch({ type: "SET_NOTE", payload: arr });
       navigate("/login");
     };
 
+    //Sidebar click logic
     const handleMenuClick = (e) => {
       const noteId = e.key;
       
@@ -100,6 +88,7 @@ export const useHomeDesign = () => {
       }
     };
 
+    //Delete button logic
     const handleDeleteNoteButton = () => {
       if (!selectedNote || !currentUser) return;
 
@@ -116,7 +105,7 @@ export const useHomeDesign = () => {
       localStorage.setItem('notes', JSON.stringify(updatedAllNotes));
 
       const updatedUserNotes = updatedAllNotes.filter(note => note.userId === currentUser);
-            dispatch({ type: "EDIT_NOTE", payload: updatedAllNotes });
+      dispatch({ type: "SET_NOTE", payload: updatedAllNotes });
 
       setNotes(updatedUserNotes);
       setSelectedNote(null);

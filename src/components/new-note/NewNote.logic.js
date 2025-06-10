@@ -50,7 +50,7 @@ export const useNewNote = () => {
                 }
             })
             updatedNotes = [...existingNotes];
-            dispatch({ type: "EDIT_NOTE", payload: updatedNotes });
+            dispatch({ type: "SET_NOTE", payload: updatedNotes });
         }
         // // Save to localStorage
         localStorage.setItem('notes', JSON.stringify(updatedNotes));
